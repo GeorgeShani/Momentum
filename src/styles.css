@@ -1,2 +1,20 @@
-/* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
+@import "./assets/fonts/fonts.css";
+
+body {
+    font-family: "FiraGO", sans-serif;
+    padding: 0 120px;
+}
+
+.font-fredoka-one {
+    @apply font-sans;
+    font-family: "Fredoka One", sans-serif;
+}
+
+input, button, textarea {
+    font-family: inherit;
+}
+
+button {
+    cursor: pointer;
+}

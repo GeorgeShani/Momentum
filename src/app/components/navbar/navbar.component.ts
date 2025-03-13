@@ -9,4 +9,12 @@ import { Component } from '@angular/core';
 export class NavbarComponent {
   hourGlass: string = 'assets/images/Hourglass.svg';
   plusSign: string = 'assets/images/plus.svg';
+
+  redirectToHome() {
+    window.location.href = '/';
+  }
+
+  redirectToTaskForm() {
+    window.location.href = '/tasks/compose';
+  }
 }

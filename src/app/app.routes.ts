@@ -1,11 +1,15 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './routes/home/home.component';
-import { TaskDetailsComponent } from './routes/task-details/task-details.component';
-import { ErrorComponent } from './routes/error/error.component';
+import { HomePageComponent } from './routes/home-page/home-page.component';
+import { TaskDetailsPageComponent } from './routes/task-details-page/task-details-page.component';
+import { TaskFormPageComponent } from './routes/task-form-page/task-form-page.component';
 
 export const routes: Routes = [
-    { path: "", redirectTo: "home", pathMatch: "full" },
-    { path: "home", component: HomeComponent },
-    { path: "task/:id", component: TaskDetailsComponent },
-    { path: "**", component: ErrorComponent },
+  { path: '', component: HomePageComponent },
+  {
+    path: 'tasks',
+    children: [
+      { path: 'compose', component: TaskFormPageComponent },
+      { path: ':id', component: TaskDetailsPageComponent },
+    ],
+  },
 ];

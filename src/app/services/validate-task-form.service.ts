@@ -33,8 +33,8 @@ export class ValidateTaskFormService {
     return !!departmentId;
   }
 
-  validateResponsibleEmployee(employeeId?: number): boolean {
-    return !!employeeId;
+  validateResponsibleEmployee(employeeID: number): boolean {
+    return !!employeeID;
   }
 
   validateDeadline(deadline: string): boolean {

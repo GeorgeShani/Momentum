@@ -1,3 +1,6 @@
-<div class="w-[381px] py-[15px] flex items-center justify-center bg-[#F7BC30] rounded-2xl">
-    <h2 class="text-xl text-white">დასაწყები</h2>
+<div
+  class="w-[381px] py-[15px] flex items-center justify-center rounded-2xl"
+  [ngStyle]="{ 'background-color': backgroundColor }"
+>
+  <h2 class="text-xl text-white">{{ taskStatus }}</h2>
 </div>

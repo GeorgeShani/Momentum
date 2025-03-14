@@ -1,8 +1,21 @@
 <div class="w-full text-left">
-    <h1 class="text-[34px] font-semibold text-[#212529]">დავალებების გვერდი</h1>
+  <h1 class="text-[34px] font-semibold text-[#212529]">დავალებების გვერდი</h1>
 </div>
-<div class="w-[688px] h-[44px] rounded-[10px] mt-[52px] flex items-center justify-center gap-[45px] border-[1px] border-solid border-[#DEE2E6]">
-    <app-dropdown-button dropdownName="დეპარტამენტი" />
-    <app-dropdown-button dropdownName="პრიორიტეტი" />
-    <app-dropdown-button dropdownName="თანამშრომელი" />
+<div
+  class="w-[688px] h-[44px] rounded-[10px] mt-[52px] flex items-center justify-center gap-[45px] border-[1px] border-solid border-[#DEE2E6]"
+>
+  <app-dropdown-button dropdownName="დეპარტამენტი" />
+  <app-dropdown-button dropdownName="პრიორიტეტი" />
+  <app-dropdown-button dropdownName="თანამშრომელი" />
+</div>
+<div class="w-full flex items-center justify-between mt-[79px]">
+  <div>
+    <app-task-section-header taskStatus="დასაწყები" backgroundColor="#FFC107" />
+  </div>
+  <app-task-section-header taskStatus="პროგრესში" backgroundColor="#FB5607" />
+  <app-task-section-header
+    taskStatus="მზად ტესტირებისთვის"
+    backgroundColor="#FF006E"
+  />
+  <app-task-section-header taskStatus="დასრულებული" backgroundColor="#3A86FF" />
 </div>

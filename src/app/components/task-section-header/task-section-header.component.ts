@@ -1,11 +1,13 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-task-section-header',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './task-section-header.component.html',
-  styleUrl: './task-section-header.component.css'
+  styleUrl: './task-section-header.component.css',
 })
 export class TaskSectionHeaderComponent {
-  
+  @Input() taskStatus!: string;
+  @Input() backgroundColor!: string;
 }

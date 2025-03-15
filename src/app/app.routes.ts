@@ -12,4 +12,5 @@ export const routes: Routes = [
       { path: ':id', component: TaskDetailsPageComponent },
     ],
   },
+  { path: '**', redirectTo: '', pathMatch: 'full' },
 ];

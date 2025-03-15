@@ -1,1 +1,29 @@
-<p>task-card works!</p>
+<div
+  class="w-[381px] h-[217px] p-5 bg-white flex flex-col items-center justify-between border-[1px] border-solid border-[#ffbe0b] rounded-[15px]"
+>
+  <div class="flex items-center justify-between w-full">
+    <div class="flex items-center justify-center gap-2.5">
+      <app-task-priority />
+      <app-department />
+    </div>
+    <div class="flex items-center justify-center">
+      <p class="text-[#212529] font-normal text-xs">22 იანვ, 2022</p>
+    </div>
+  </div>
+  <div class="w-full flex flex-col items-start justify-center gap-3">
+    <h3 class="font-medium text-[15px] text-[#212529] cursor-pointer" (click)="redirectToDetails(1)">
+      Redberry-ს საიტის ლენდინგის დიზაინი
+    </h3>
+    <p class="w-full font-normal text-[#343A40] text-[14px] line-clamp-2">
+      შექმენი საიტის მთავარი გვერდი, რომელიც მოიცავს მთავარ სექციებს,
+      ნავიგაციას.
+    </p>
+  </div>
+  <div class="w-full flex items-center justify-between">
+    <img src="/assets/images/employee.png" alt="Employee Avatar" />
+    <div class="flex items-center justify-center gap-1">
+      <img src="/assets/images/comments-icon.svg" alt="Comments Icon" />
+      <p class="font-normal text-[14px] text-[#212529]">8</p>
+    </div>
+  </div>
+</div>

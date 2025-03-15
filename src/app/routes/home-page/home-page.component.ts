@@ -5,10 +5,11 @@ import { Department } from '../../interfaces/department.model';
 import { ApiService } from '../../services/api.service';
 import { Priority } from '../../interfaces/priority.model';
 import { Employee } from '../../interfaces/employee.model';
+import { TaskCardComponent } from "../../components/task-card/task-card.component";
 
 @Component({
   selector: 'app-home-page',
-  imports: [DropdownButtonComponent, TaskSectionHeaderComponent],
+  imports: [DropdownButtonComponent, TaskSectionHeaderComponent, TaskCardComponent],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css',
 })

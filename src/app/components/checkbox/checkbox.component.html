@@ -1,0 +1,24 @@
+<label class="flex items-center justify-center gap-[15px] cursor-pointer">
+  <input type="checkbox" [(ngModel)]="isChecked" class="hidden" />
+  <div
+    class="w-6 h-6 border-[1.5px] border-[#212529] rounded-md flex items-center justify-center"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="14"
+      height="10"
+      viewBox="0 0 14 10"
+      fill="none"
+      [ngClass]="{ 'opacity-0': !isChecked, 'opacity-100': isChecked }"
+    >
+      <path
+        d="M12.3334 1.33325L5.00008 8.66659L1.66675 5.33325"
+        stroke="#212529"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  </div>
+  <span class="font-normal text-xs text-[#212529]">{{ label }}</span>
+</label>

@@ -1,37 +1,21 @@
 @import "tailwindcss";
 @import "./assets/fonts/fonts.css";
 
-/* :root {
-    --orange: #FB5607;
-    --pink: #FF006E;
-    --blue: #3A86FF;
-    --purple: #8338EC;
-    --red: #FA4D4D;
-    --yellow: #F7BC30;
-    --black: #0D0F10;
-    --grey-1: #F8F9FA;
-    --grey-10: #DEE2E6;
-    --grey-15: #ADB5BD;
-    --grey-validations: #6C757D;
-    --grey-subheadlines: #343A40;
-    --grey-headlines: #212529;
-    --font-primary: "FiraGO", sans-serif;
-    --font-secondary: "Fredoka One", sans-serif;
-} */
-
 body {
-    font-family: "FiraGO", sans-serif;
-    padding: 0 120px;
+  font-family: "FiraGO", sans-serif;
+  padding: 0 120px;
 }
 
 .font-fredoka-one {
-    font-family: "Fredoka One", sans-serif;
+  font-family: "Fredoka One", sans-serif;
 }
 
-input, button, textarea {
-    font-family: inherit;
+input,
+button,
+textarea {
+  font-family: inherit;
 }
 
 button {
-    cursor: pointer;
+  cursor: pointer;
 }

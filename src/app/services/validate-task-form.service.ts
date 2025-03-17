@@ -13,27 +13,21 @@ export class ValidateTaskFormService {
     return wordCount >= 4 && description.length <= 255;
   }
 
-  validatePriority(priority: string): boolean {
-    const validPriorities = ['მაღალი', 'საშუალო', 'დაბალი'];
-    return validPriorities.includes(priority);
+  validatePriority(priorityID: number): boolean {
+    const priorityIdentifiers: number[] = [1, 2, 3];
+    return priorityIdentifiers.includes(priorityID);
   }
 
-  validateStatus(status: string): boolean {
-    const validStatuses = [
-      'დასაწყები',
-      'პროგრესში',
-      'მზად ტესტირებისთვის',
-      'დასრულებული',
-    ];
-
-    return validStatuses.includes(status);
+  validateStatus(statusID: number): boolean {
+    const statusIdentifiers: number[] = [1, 2, 3, 4];
+    return statusIdentifiers.includes(statusID);
   }
 
-  validateDepartment(departmentId: string): boolean {
-    return !!departmentId;
+  validateDepartment(departmentID: number): boolean {
+    return !!departmentID;
   }
 
-  validateResponsibleEmployee(employeeID: number): boolean {
+  validateResponsibleEmployee(employeeID: number | null): boolean {
     return !!employeeID;
   }
 
@@ -41,6 +35,7 @@ export class ValidateTaskFormService {
     const selectedDate = new Date(deadline);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
+
     return selectedDate >= today;
   }
 }

@@ -4,10 +4,16 @@
   </h1>
 </div>
 <div
-  class="w-full h-[804px] flex items-start justify-between my-[30px] pt-[65px] pl-[55px] pr-[368px] pb-[62px] bg-[#fbf9ffa6] border-[0.3px] border-solid border-[#DDD2FF] rounded-sm"
+  class="w-full h-[auto flex flex-col items-center justify-between my-[30px] pt-[65px] pl-[55px] pr-[368px] pb-[62px] bg-[#fbf9ffa6] border-[0.3px] border-solid border-[#DDD2FF] rounded-sm"
 >
-  <div class="w-[550px] flex flex-col items-center justify-center gap-[55px]">
-    <div class="w-full flex flex-col items-start justify-center">
+  <div
+    class="w-full h-full grid gap-x-[161px] gap-y-[55px]"
+    style="
+      grid-template-columns: 550px 550px;
+      grid-template-rows: 108px 196px 260px;
+    "
+  >
+    <div class="flex flex-col">
       <label
         for="task-title"
         class="font-normal text-[16px] py-1 text-[#343A40]"
@@ -17,16 +23,68 @@
       <input
         type="text"
         id="task-title"
+        [(ngModel)]="taskTitle"
+        (ngModelChange)="validationService.validateTitle(taskTitle)"
         class="w-full p-3.5 bg-white border-[1px] border-solid border-[#DEE2E6] rounded-[5px] outline-none text-[#0D0F10] font-light text-sm"
       />
       <div class="w-full flex flex-col items-start justify-center mt-1">
-        <p class="text-[10px] text-[#6C757D] font-light">მინიმუმ 2 სიმბოლო</p>
-        <p class="text-[10px] text-[#6C757D] font-light">
+        <p
+          class="text-[10px] text-[#6C757D] font-light"
+          [ngClass]="{
+            'text-[#08A508]':
+              taskTitle && validationService.validateTitle(taskTitle),
+            'text-[#FA4D4D]':
+              taskTitle && !validationService.validateTitle(taskTitle),
+            'text-[#6C757D]': !taskTitle
+          }"
+        >
+          მინიმუმ 3 სიმბოლო
+        </p>
+        <p
+          class="text-[10px] text-[#6C757D] font-light"
+          [ngClass]="{
+            'text-[#08A508]':
+              taskTitle && validationService.validateTitle(taskTitle),
+            'text-[#FA4D4D]':
+              taskTitle && !validationService.validateTitle(taskTitle),
+            'text-[#6C757D]': !taskTitle
+          }"
+        >
           მაქსიმუმ 255 სიმბოლო
         </p>
       </div>
     </div>
-    <div class="w-full flex flex-col items-start justify-center">
+    <div class="flex flex-col">
+      <label
+        for="department"
+        class="font-normal text-[16px] py-1 text-[#343A40]"
+      >
+        დეპარტამენტი*
+      </label>
+      <ng-select
+        id="department"
+        [items]="departments"
+        bindLabel="name"
+        bindValue="id"
+        [searchable]="false"
+        [clearable]="false"
+        [(ngModel)]="selectedDepartmentID"
+        class="w-full p-3.5 bg-white border-[1px] border-solid border-[#DEE2E6] rounded-[5px] outline-none text-[#0D0F10] font-extralight text-sm"
+      >
+        <ng-template ng-label-tmp let-item="item">
+          <div class="flex items-center">
+            {{ item.name }}
+          </div>
+        </ng-template>
+        <ng-template ng-option-tmp let-item="item">
+          <div class="flex items-center">
+            {{ item.name }}
+          </div>
+        </ng-template>
+        <ng-template ng-arrowicon-tmp></ng-template>
+      </ng-select>
+    </div>
+    <div class="flex flex-col">
       <label
         for="task-description"
         class="font-normal text-[16px] py-1 text-[#343A40]"
@@ -35,17 +93,95 @@
       </label>
       <textarea
         id="task-description"
+        [(ngModel)]="taskDescription"
+        (ngModelChange)="validationService.validateDescription(taskDescription)"
         class="w-full p-3.5 h-[133px] resize-none bg-white border-[1px] border-solid border-[#DEE2E6] rounded-[5px] outline-none text-[#0D0F10] font-light text-sm"
       ></textarea>
       <div class="w-full flex flex-col items-start justify-center mt-1">
-        <p class="text-[10px] text-[#6C757D] font-light">მინიმუმ 2 სიმბოლო</p>
-        <p class="text-[10px] text-[#6C757D] font-light">
+        <p
+          class="text-[10px] font-light"
+          [ngClass]="{
+            'text-[#08A508]':
+              taskDescription &&
+              validationService.validateDescription(taskDescription),
+            'text-[#FA4D4D]':
+              taskDescription &&
+              !validationService.validateDescription(taskDescription),
+            'text-[#6C757D]': !taskDescription
+          }"
+        >
+          მინიმუმ 4 სიტყვა
+        </p>
+        <p
+          class="text-[10px] text-[#6C757D] font-light"
+          [ngClass]="{
+            'text-[#08A508]':
+              taskDescription &&
+              validationService.validateDescription(taskDescription),
+            'text-[#FA4D4D]':
+              taskDescription &&
+              !validationService.validateDescription(taskDescription),
+            'text-[#6C757D]': !taskDescription
+          }"
+        >
           მაქსიმუმ 255 სიმბოლო
         </p>
       </div>
     </div>
-    <div class="w-full flex items-center justify-between">
-      <div class="flex flex-col items-start justify-center">
+    <div class="flex flex-col">
+      <label
+        for="responsible-employee"
+        class="font-normal text-[16px] py-1 text-[#343A40]"
+      >
+        პასუხისმგებელი თანამშრომელი*
+      </label>
+      <ng-select
+        id="responsible-employee"
+        [items]="employees"
+        bindLabel="name"
+        bindValue="id"
+        [searchable]="false"
+        [clearable]="false"
+        [(ngModel)]="selectedEmployeeID"
+        class="w-full p-3.5 bg-white border-[1px] border-solid border-[#DEE2E6] rounded-[5px] outline-none text-[#0D0F10] font-extralight text-sm"
+      >
+        <ng-template ng-label-tmp let-item="item">
+          <div class="flex items-center" *ngIf="item">
+            <img [src]="item.icon" class="mr-2" alt="{{ item.name }} Icon" />
+            {{ item.name }}
+          </div>
+          <div *ngIf="!item" class="text-gray-400">
+            არჩეული თანამშრომელი არ არის
+          </div>
+        </ng-template>
+        <ng-template ng-header-tmp>
+          <button
+            class="w-full text-left px-[15px] py-3 rounded-md flex items-center justify-start gap-2 hover:bg-[#F8F9FA] text-[#8338EC] font-normal text-[16px]"
+          >
+            <span
+              class="w-[18px] h-[18px] rounded-full border-[1.5px] border-solid border-[#8338EC] text-2xl text-[#8338EC] font-extralight flex items-center justify-center"
+            >
+              +
+            </span>
+            დაამატე თანამშრომელი
+          </button>
+        </ng-template>
+        <ng-template ng-option-tmp let-item="item">
+          <div class="flex items-center">
+            <img [src]="item.icon" class="mr-2" alt="{{ item.name }} Icon" />
+            {{ item.name }}
+          </div>
+        </ng-template>
+        <ng-template ng-notfound-tmp>
+          <div class="px-3 py-2 text-center text-gray-500">
+            თანამშრომლები არ მოიძებნა
+          </div>
+        </ng-template>
+        <ng-template ng-arrowicon-tmp></ng-template>
+      </ng-select>
+    </div>
+    <div class="flex items-start justify-between gap-8">
+      <div class="flex flex-col">
         <label
           for="task-priority"
           class="font-normal text-[16px] py-1 text-[#343A40]"
@@ -77,7 +213,7 @@
           <ng-template ng-arrowicon-tmp> </ng-template>
         </ng-select>
       </div>
-      <div class="flex flex-col items-start justify-center">
+      <div class="flex flex-col">
         <label
           for="task-status"
           class="font-normal text-[16px] py-1 text-[#343A40]"
@@ -108,79 +244,8 @@
         </ng-select>
       </div>
     </div>
-  </div>
-  <div class="w-[550px] flex flex-col items-center justify-center">
-    <div class="w-full flex flex-col items-start justify-center mb-[33.4px]">
-      <label
-        for="department"
-        class="font-normal text-[16px] py-1 text-[#343A40]"
-      >
-        დეპარტამენტი*
-      </label>
-      <ng-select
-        id="department"
-        [items]="departments"
-        bindLabel="name"
-        bindValue="id"
-        [searchable]="false"
-        [clearable]="false"
-        [(ngModel)]="selectedDepartmentID"
-        class="w-full p-3.5 bg-white border-[1px] border-solid border-[#DEE2E6] rounded-[5px] outline-none text-[#0D0F10] font-extralight text-sm"
-      >
-        <ng-template ng-label-tmp let-item="item">
-          <div class="flex items-center">
-            {{ item.name }}
-          </div>
-        </ng-template>
-        <ng-template ng-option-tmp let-item="item">
-          <div class="flex items-center">
-            {{ item.name }}
-          </div>
-        </ng-template>
-        <ng-template ng-arrowicon-tmp></ng-template>
-      </ng-select>
-    </div>
-    <div class="w-full flex flex-col items-start justify-center mt-[55px]">
-      <label
-        for="responsible-employee"
-        class="font-normal text-[16px] py-1 text-[#343A40]"
-      >
-        პასუხისმგებელი თანამშრომელი*
-      </label>
-      <ng-select
-        id="responsible-employee"
-        [items]="employees"
-        bindLabel="name"
-        bindValue="id"
-        [searchable]="false"
-        [clearable]="false"
-        [(ngModel)]="selectedEmployeeID"
-        class="w-full p-3.5 bg-white border-[1px] border-solid border-[#DEE2E6] rounded-[5px] outline-none text-[#0D0F10] font-extralight text-sm"
-      >
-        <ng-template ng-label-tmp let-item="item">
-          <div class="flex items-center">
-            <div class="flex items-center">
-              <img [src]="item.icon" class="mr-2" alt="{{ item.name }} Icon" />
-              {{ item.name }}
-            </div>
-          </div>
-        </ng-template>
-        <ng-template ng-option-tmp let-item="item">
-          <div class="flex items-center">
-            <div class="flex items-center">
-              <img [src]="item.icon" class="mr-2" alt="{{ item.name }} Icon" />
-              {{ item.name }}
-            </div>
-          </div>
-        </ng-template>
-        <ng-template ng-arrowicon-tmp></ng-template>
-      </ng-select>
-    </div>
-    <div class="w-full flex flex-col items-start justify-center mt-[171.5px]">
-      <label
-        for="due-date"
-        class="font-normal text-[16px] py-1 text-[#343A40]"
-      >
+    <div class="flex flex-col">
+      <label for="due-date" class="font-normal text-[16px] py-1 text-[#343A40]">
         დედლაინი*
       </label>
       <input
@@ -189,10 +254,12 @@
         class="w-[318px] p-3.5 bg-white border-[1px] border-solid border-[#DEE2E6] rounded-[5px] outline-none text-[#0D0F10] font-light text-sm"
       />
     </div>
-    <div class="w-full flex flex-col items-end justify-center mt-[147px]">
-      <button class="py-2.5 px-5 bg-[#8338EC] text-white font-normal text-lg rounded-[5px]">
-        დავალების შექმნა
-      </button>
-    </div>
+  </div>
+  <div class="w-full flex items-center justify-end">
+    <button
+      class="py-2.5 px-5 bg-[#8338EC] text-white font-normal text-lg rounded-[5px]"
+    >
+      დავალების შექმნა
+    </button>
   </div>
 </div>

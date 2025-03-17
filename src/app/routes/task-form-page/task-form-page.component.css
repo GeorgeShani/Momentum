@@ -7,6 +7,10 @@
   height: auto;
 }
 
+::ng-deep .ng-option:hover {
+  background-color: #F8F9FA;
+}
+
 ::ng-deep .ng-dropdown-panel {
   background-color: white;
   border: 1px solid #dee2e6;

@@ -1,14 +1,34 @@
 <div class="w-full text-left">
-  <h1 class="text-[34px] font-semibold text-[#212529]">დავალებების გვერდი</h1>
+  <h1 class="text-[34px] font-semibold text-[#212529] mb-[52px]">
+    დავალებების გვერდი
+  </h1>
 </div>
-<div
-  class="w-[688px] h-[44px] rounded-[10px] mt-[52px] flex items-center justify-center gap-[45px] border-[1px] border-solid border-[#DEE2E6]"
->
-  <app-dropdown-button dropdownName="დეპარტამენტი" />
-  <app-dropdown-button dropdownName="პრიორიტეტი" />
-  <app-dropdown-button dropdownName="თანამშრომელი" />
+<div class="w-[688px] relative flex flex-col items-center justify-center gap-3">
+  <div
+    class="w-full h-[44px] relative rounded-[10px] flex items-center justify-center gap-[45px] border-[1px] border-solid border-[#DEE2E6]"
+  >
+    <app-dropdown-button dropdownName="დეპარტამენტი" />
+    <app-dropdown-button dropdownName="პრიორიტეტი" />
+    <app-dropdown-button dropdownName="თანამშრომელი" />
+  </div>
+  <div class="w-full absolute top-14 hidden">
+    <app-dropdown-popover />
+  </div>
 </div>
-<div class="w-full flex items-start justify-between my-[79px]">
+<div class="w-full h-[30px] my-[25px]">
+  <div class="w-full h-full hidden"> <!-- flex items-center justify-start gap-2 -->
+    <app-filter-option label="მაღალი" />
+    <app-filter-option label="მაღალი" />
+    <app-filter-option label="მაღალი" />
+    <app-filter-option label="მაღალი" />
+    <button
+      class="w-[110px] h-[30px] px-2.5 py-1.5 bg-transparent border-none cursor-pointer text-[#343A40] font-light text-[14px]"
+    >
+      გასუფთავება
+    </button>
+  </div>
+</div>
+<div class="w-full flex items-start justify-between">
   <div class="flex flex-col gap-[30px] items-start justify-center">
     <app-task-section-header taskStatus="დასაწყები" backgroundColor="#FFC107" />
     <app-task-card />

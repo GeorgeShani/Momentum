@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { EmployeeModalService } from '../../services/employee-modal.service';
 
 @Component({
   selector: 'app-navbar',
@@ -7,8 +8,11 @@ import { Component } from '@angular/core';
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
-  hourGlass: string = 'assets/images/Hourglass.svg';
-  plusSign: string = 'assets/images/plus.svg';
+  constructor(private modalService: EmployeeModalService) {}
+
+  openEmployeeModal(): void {
+    this.modalService.openModal();
+  }
 
   redirectToHome() {
     window.location.href = '/';

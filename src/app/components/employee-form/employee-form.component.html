@@ -1,1 +1,153 @@
-<p>employee-form works!</p>
+<div
+  *ngIf="isVisible"
+  class="w-full h-full fixed top-0 left-0 z-100 flex items-center justify-center bg-[#0d0f1026]"
+>
+  <div
+    class="w-[913px] h-[766px] px-10 py-[50px] flex flex-col items-center bg-white rounded-[10px]"
+  >
+    <div class="w-full flex items-center justify-end">
+      <img
+        src="/assets/images/cancel.svg"
+        alt="Cancel Icon"
+        class="cursor-pointer"
+        (click)="closeModal()"
+      />
+    </div>
+    <div
+      class="w-full flex flex-col items-center justify-items-center gap-[45px] mt-[37px]"
+    >
+      <h2 class="font-medium text-[32px] text-[#212529]">
+        თანამშრომლის დამატება
+      </h2>
+      <div class="w-full flex items-center justify-between gap-[45px]">
+        <div class="w-[384px] flex flex-col items-start justify-center">
+          <label
+            for="first-name"
+            class="font-medium text-sm text-[#343A40] mb-[3px]"
+          >
+            სახელი*
+          </label>
+          <div
+            class="w-full flex items-center justify-between p-2.5 rounded-md border border-[#CED4DA] outline-none mb-[6px]"
+          >
+            <input
+              type="text"
+              id="first-name"
+              class="w-full outline-none text-[#0D0F10] font-light text-sm"
+            />
+            <img
+              src="/assets/images/important-icon.svg"
+              alt="Important Icon"
+              class="ml-2 flex-shrink-0"
+            />
+          </div>
+          <p
+            class="text-[10px] font-light text-[#6C757D] flex items-center gap-0.5"
+          >
+            <app-check-icon strokeColor="#6C757D" />
+            მინიმუმ 2 სიმბოლო
+          </p>
+          <p
+            class="text-[10px] font-light text-[#6C757D] flex items-center gap-0.5"
+          >
+            <app-check-icon strokeColor="#6C757D" />
+            მაქსიმუმ 255 სიმბოლო
+          </p>
+        </div>
+        <div class="w-[384px] flex flex-col items-start justify-center">
+          <label
+            for="last-name"
+            class="font-medium text-sm text-[#343A40] mb-[3px]"
+          >
+            გვარი*
+          </label>
+          <div
+            class="w-full flex items-center justify-between p-2.5 rounded-md border border-[#CED4DA] outline-none mb-[6px]"
+          >
+            <input
+              type="text"
+              id="last-name"
+              class="w-full outline-none text-[#0D0F10] font-light text-sm"
+            />
+            <img
+              src="/assets/images/important-icon.svg"
+              alt="Important Icon"
+              class="ml-2 flex-shrink-0"
+            />
+          </div>
+          <p
+            class="text-[10px] font-light text-[#6C757D] flex items-center gap-0.5"
+          >
+            <app-check-icon strokeColor="#6C757D" />
+            მინიმუმ 2 სიმბოლო
+          </p>
+          <p
+            class="text-[10px] font-light text-[#6C757D] flex items-center gap-0.5"
+          >
+            <app-check-icon strokeColor="#6C757D" />
+            მაქსიმუმ 255 სიმბოლო
+          </p>
+        </div>
+      </div>
+      <div class="w-full flex flex-col items-start justify-center gap-2">
+        <label
+          for="fileUpload"
+          class="w-full flex flex-col items-start justify-center gap-2 cursor-pointer"
+        >
+          <span class="font-medium text-sm text-[#343A40]">ავატარი*</span>
+          <div
+            class="w-full h-[120px] rounded-lg border border-dashed border-[#CED4DA] flex flex-col items-center justify-center"
+          >
+            <input id="fileUpload" type="file" class="hidden" />
+            <div
+              class="w-[136px] h-[50px] flex flex-col items-center justify-center gap-[5px]"
+            >
+              <img
+                src="/assets/images/upload-image.svg"
+                alt="Upload Image Icon"
+              />
+              <p class="font-normal text-sm text-[#343A40]">ატვირთეთ ფოტო</p>
+            </div>
+          </div>
+        </label>
+      </div>
+      <div class="w-full flex items-center justify-start">
+        <label
+          for="department"
+          class="w-[384px] flex flex-col items-start justify-center"
+        >
+          <span class="font-medium text-sm text-[#343A40] mb-[3px]">
+            დეპარტამენტი*
+          </span>
+          <div
+            class="w-full flex items-center justify-between p-2.5 rounded-md border border-[#CED4DA] mb-[6px]"
+          >
+            <input
+              type="text"
+              id="department"
+              class="w-full h-full outline-none text-[#0D0F10] font-light text-sm bg-transparent pr-2"
+            />
+            <img
+              src="/assets/images/important-icon.svg"
+              alt="Important Icon"
+              class="w-5 h-5 flex-shrink-0"
+            />
+          </div>
+        </label>
+      </div>
+      <div class="w-full flex items-center justify-end gap-[22px]">
+        <button
+          class="px-4 py-2.5 border-[1px] border-[#8338ec] font-normal text-[16px] text-[#343A40] rounded-[5px]"
+          (click)="closeModal()"
+        >
+          გაუქმება
+        </button>
+        <button
+          class="px-5 py-2.5 bg-[#8838ec] font-normal text-[18px] text-white rounded-[5px]"
+        >
+          დაამატე თანამშრომელი
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

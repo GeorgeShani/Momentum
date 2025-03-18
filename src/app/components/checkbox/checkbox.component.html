@@ -1,4 +1,7 @@
-<label class="flex items-center justify-center gap-[15px] cursor-pointer">
+<label
+  class="flex items-center justify-center gap-[15px] cursor-pointer"
+  (click)="toggleCheckbox()"
+>
   <input type="checkbox" [(ngModel)]="isChecked" class="hidden" />
   <div
     class="w-6 h-6 border-[1.5px] border-[#212529] rounded-md flex items-center justify-center"

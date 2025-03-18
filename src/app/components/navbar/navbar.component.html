@@ -5,11 +5,12 @@
       (click)="redirectToHome()"
     >
       <h1 class="text-[#8338ec] text-[31px] font-fredoka-one">Momentum</h1>
-      <img [src]="hourGlass" alt="Hour Glass" />
+      <img src="/assets/images/Hourglass.svg" alt="Hour Glass" />
     </div>
     <div class="flex items-center justify-center gap-10">
       <button
         class="px-5 py-2.5 font-normal text-[#212529] rounded-[5px] border-[1px] border-[#8338ec] hover:border-[#B588F4]"
+        (click)="openEmployeeModal()"
       >
         თანამშრომლის შექმნა
       </button>
@@ -17,7 +18,7 @@
         class="px-5 py-2.5 font-normal text-white rounded-[5px] bg-[#8338ec] hover:bg-[#B588F4] flex items-center justify-center gap-1"
         (click)="redirectToTaskForm()"
       >
-        <img [src]="plusSign" alt="Plus" />
+        <img src="/assets/images/plus.svg" alt="Plus" />
         შექმენი ახალი დავალება
       </button>
     </div>

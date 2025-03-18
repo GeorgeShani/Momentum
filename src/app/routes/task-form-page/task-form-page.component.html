@@ -4,7 +4,7 @@
   </h1>
 </div>
 <div
-  class="w-full h-[auto flex flex-col items-center justify-between my-[30px] pt-[65px] pl-[55px] pr-[368px] pb-[62px] bg-[#fbf9ffa6] border-[0.3px] border-solid border-[#DDD2FF] rounded-sm"
+  class="w-full h-[auto flex flex-col items-center justify-between mt-[30px] mb-[150px] pt-[65px] pl-[55px] pr-[368px] pb-[62px] bg-[#fbf9ffa6] border-[0.3px] border-solid border-[#DDD2FF] rounded-sm"
 >
   <div
     class="w-full h-full grid gap-x-[161px] gap-y-[55px]"
@@ -136,6 +136,7 @@
         პასუხისმგებელი თანამშრომელი*
       </label>
       <ng-select
+        #employeeSelect
         id="responsible-employee"
         [items]="employees"
         bindLabel="name"
@@ -157,6 +158,7 @@
         <ng-template ng-header-tmp>
           <button
             class="w-full text-left px-[15px] py-3 rounded-md flex items-center justify-start gap-2 hover:bg-[#F8F9FA] text-[#8338EC] font-normal text-[16px]"
+            (click)="openEmployeeModal()"
           >
             <span
               class="w-[18px] h-[18px] rounded-full border-[1.5px] border-solid border-[#8338EC] text-2xl text-[#8338EC] font-extralight flex items-center justify-center"
@@ -248,16 +250,17 @@
       <label for="due-date" class="font-normal text-[16px] py-1 text-[#343A40]">
         დედლაინი*
       </label>
-      <input
-        type="date"
-        id="due-date"
-        class="w-[318px] p-3.5 bg-white border-[1px] border-solid border-[#DEE2E6] rounded-[5px] outline-none text-[#0D0F10] font-light text-sm"
-      />
+      <app-date-picker
+        [(ngModel)]="selectedDeadlineDate"
+        (ngModelChange)="
+          validationService.validateDeadline(selectedDeadlineDate.toString())
+        "
+      ></app-date-picker>
     </div>
   </div>
   <div class="w-full flex items-center justify-end">
     <button
-      class="py-2.5 px-5 bg-[#8338EC] text-white font-normal text-lg rounded-[5px]"
+      class="py-2.5 px-5 bg-[#8338EC] text-white font-normal text-lg rounded-[5px] hover:bg-[#B588F4]"
     >
       დავალების შექმნა
     </button>

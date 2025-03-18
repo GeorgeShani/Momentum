@@ -1,1 +1,147 @@
-<p>task-details-page works!</p>
+<div class="w-full flex items-start justify-between mb-14">
+  <div class="w-[715px] flex flex-col items-start justify-center gap-[63px]">
+    <div class="w-full flex flex-col items-start justify-center gap-9">
+      <div
+        class="w-full h-[105px] py-2.5 flex flex-col items-start justify-cenetr gap-3"
+      >
+        <div class="w-full flex items-center justify-start gap-[18px]">
+          <app-task-priority />
+          <app-department />
+        </div>
+        <h1
+          class="w-full flex items-center justify-start font-semibold text-[34px] text-[#212529]"
+        >
+          Redberry-ს საიტის ლენდინგის დიზაინი
+        </h1>
+      </div>
+      <div class="w-full">
+        <p class="text-black font-normal text-[18px] leading-[27px] text-left">
+          მიზანია რომ შეიქმნას თანამედროვე, სუფთა და ფუნქციონალური დიზაინი,
+          რომელიც უზრუნველყოფს მარტივ ნავიგაციას და მკაფიო ინფორმაციის
+          გადაცემას. დიზაინი უნდა იყოს ადაპტირებადი (responsive), გამორჩეული
+          ვიზუალით, მინიმალისტური სტილით და ნათელი ტიპოგრაფიით.
+        </p>
+      </div>
+    </div>
+    <div class="w-[493px] flex flex-col items-start justify-center">
+      <h2 class="text-[#2A2A2A] font-medium text-2xl mb-[18px] py-2.5">
+        დავალების დეტალები
+      </h2>
+      <div
+        class="w-full h-[70px] flex items-center justify-start gap-[70px] py-2.5"
+      >
+        <div class="w-[164px] flex items-center justify-start gap-1.5">
+          <img
+            src="/assets/images/sliced-circle.svg"
+            alt="Sliced Circle Icon"
+          />
+          <p class="font-normal text-sm text-[#474747]">სტატუსი</p>
+        </div>
+        <ng-select
+          id="task-status"
+          [items]="statuses"
+          bindLabel="name"
+          bindValue="id"
+          [searchable]="false"
+          [clearable]="false"
+          [(ngModel)]="selectedStatusID"
+          class="w-[259px] p-3.5 bg-white border-[1px] border-solid border-[#DEE2E6] rounded-[5px] outline-none text-[#0D0F10] font-extralight text-sm"
+        >
+          <ng-template ng-label-tmp let-item="item">
+            <div class="flex items-center">
+              {{ item.name }}
+            </div>
+          </ng-template>
+          <ng-template ng-option-tmp let-item="item">
+            <div class="flex items-center">
+              {{ item.name }}
+            </div>
+          </ng-template>
+          <ng-template ng-arrowicon-tmp />
+        </ng-select>
+      </div>
+      <div
+        class="w-full h-[70px] flex items-center justify-start gap-[70px] py-3"
+      >
+        <div class="w-[164px] flex items-center justify-start gap-1.5">
+          <img src="/assets/images/person.svg" alt="Sliced Circle Icon" />
+          <p class="font-normal text-sm text-[#474747]">თანამშრომელი</p>
+        </div>
+        <div class="flex items-center justify-center gap-3">
+          <div class="flex items-center justify-center">
+            <img src="/assets/images/employee.png" alt="" />
+          </div>
+          <div class="flex flex-col items-start justify-center gap-[1.5px]">
+            <p class="font-extralight text-[11px] text-[#474747]">
+              დიზაინის დეპარტამენტი
+            </p>
+            <p class="font-normal text-sm text-[#0D0F10]">ელიანა ბაგრატიონი</p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="w-full h-[70px] flex items-center justify-start gap-[70px] py-2"
+      >
+        <div class="w-[164px] flex items-center justify-start gap-1.5">
+          <img src="/assets/images/calendar-2.svg" alt="Sliced Circle Icon" />
+          <p class="font-normal text-sm text-[#474747]">დავალების ვადა</p>
+        </div>
+        <div class="flex items-center justify-center">
+          <p class="font-normal text-sm text-[#0D0F1]">ორშ - 02/2/2025</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="w-[741px] bg-[#f8f3fea6] rounded-[10px] border-[0.3px] border-solid border-[#DDD2FF] mt-14 pt-10 pb-[52px] px-[45px]"
+  >
+    <div
+      class="w-full bg-white rounded-[10px] border-[0.3px] border-[#ADB5BD] flex flex-col items-center justify-center pt-[18px] pb-[15px] px-5"
+    >
+      <div class="w-full flex items-center justify-center">
+        <textarea
+          class="w-full h-[72px] py-2.5 resize-none placeholder:text-[#898989] font-light text-sm text-[#343A40] outline-none"
+          id="comment"
+          placeholder="დაწერე კომენტარი"
+          [(ngModel)]="comment"
+        ></textarea>
+      </div>
+      <div class="w-full flex items-center justify-end mt-3">
+        <button
+          class="w-[155px] py-2 px-5 bg-[#8338ec] hover:bg-[#B588F4] rounded-[20px] font-normal text-white text-[16px]"
+          [disabled]="!comment.trim()"
+        >
+          დააკომენტარე
+        </button>
+      </div>
+    </div>
+    <div class="w-full flex items-center justify-start mt-[66px] gap-[7px]">
+      <h3 class="font-medium text-xl text-black">კომენტარები</h3>
+      <span
+        class="px-2.5 py-0.5 rounded-[30px] bg-[#8338EC] font-medium text-white text-sm flex items-center justify-center"
+      >
+        3
+      </span>
+    </div>
+    <div class="w-full flex flex-col items-start justify-center mt-[41px]">
+      <div class="w-[598px] h-[104px] flex items-center justify-center gap-3">
+        <div class="w-[38px] h-full flex items-start justify-center">
+          <img src="/assets/images/employee.png" alt="Comment Author Avatar" />
+        </div>
+        <div class="w-[548px] h-full flex flex-col items-start justify-center">
+          <h4 class="font-medium text-lg text-[#212529]">ემილია მორგანი</h4>
+          <p class="font-light text-[#343A40] text-[16px] mt-2">
+            დიზაინი სუფთად ჩანს, მაგრამ კოდირებისას მნიშვნელოვანი იქნება, რომ
+            ელემენტებს ჰქონდეს შესაბამისი რეზოლუცია.
+          </p>
+          <button
+            class="group bg-transparent py-1.5 flex items-center justify-start gap-1.5 text-[#8338EC] font-extrabold text-sm mt-2.5 hover:text-[#B588F4]"
+          >
+            <app-left-icon defaultColor="#8338EC" hoverColor="#B588F4" />
+            უპასუხე
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

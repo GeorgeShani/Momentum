@@ -17,12 +17,12 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 })
 export class DatePickerComponent implements ControlValueAccessor, OnInit {
   selectedDate: Date | null = null;
-  isOpen = false;
-  currentMonthIndex = new Date().getMonth();
-  currentYear = new Date().getFullYear();
+  isOpen: boolean = false;
+  currentMonthIndex: number = new Date().getMonth();
+  currentYear: number = new Date().getFullYear();
   daysInMonth: (Date | null)[] = [];
 
-  georgianMonths = [
+  georgianMonths: string[] = [
     'იანვარი',
     'თებერვალი',
     'მარტი',
@@ -37,7 +37,7 @@ export class DatePickerComponent implements ControlValueAccessor, OnInit {
     'დეკემბერი',
   ];
 
-  georgianDays = ['ორშ', 'სამ', 'ოთხ', 'ხუთ', 'პარ', 'შაბ', 'კვ'];
+  georgianDays: string[] = ['ორშ', 'სამ', 'ოთხ', 'ხუთ', 'პარ', 'შაბ', 'კვ'];
 
   private onChange: (value: Date | null) => void = () => {};
   private onTouched: () => void = () => {};
@@ -99,7 +99,7 @@ export class DatePickerComponent implements ControlValueAccessor, OnInit {
       this.currentMonthIndex,
       1
     ).getDay();
-    
+
     const lastDay = new Date(
       this.currentYear,
       this.currentMonthIndex + 1,

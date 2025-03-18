@@ -1,0 +1,60 @@
+::ng-deep .ng-select .ng-select-container {
+  border: none;
+  background: transparent;
+}
+
+::ng-deep .ng-select.ng-select-single .ng-select-container {
+  height: auto;
+}
+
+::ng-deep .ng-option:hover {
+  background-color: #F8F9FA;
+}
+
+::ng-deep .ng-dropdown-panel {
+  background-color: white;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  margin-top: 4px;
+  top: 48px;
+  left: 0 !important;
+  width: 100% !important;
+}
+
+::ng-deep .ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
+  padding: 0.875rem;
+}
+
+/* Hide the default arrow */
+::ng-deep .ng-select .ng-arrow-wrapper .ng-arrow {
+  opacity: 0;
+}
+
+/* Custom arrow wrapper */
+::ng-deep .ng-select .ng-arrow-wrapper {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* SVG arrow using ::after pseudo-element */
+::ng-deep .ng-select .ng-arrow-wrapper::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 8px;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%230D0F10' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  transition: transform 0.2s ease;
+}
+
+/* Rotate and change color to #8338EC when select is opened */
+::ng-deep .ng-select.ng-select-opened .ng-arrow-wrapper::after {
+  transform: rotate(180deg);
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%238338EC' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}

@@ -11,6 +11,7 @@ import { Department } from '../../interfaces/department.model';
 import { Employee } from '../../interfaces/employee.model';
 import { TaskFormData } from '../../interfaces/task-form-data.model';
 import { EmployeeModalService } from '../../services/employee-modal.service';
+import { Task } from '../../interfaces/task.model';
 
 @Component({
   selector: 'app-task-form-page',
@@ -32,21 +33,12 @@ export class TaskFormPageComponent implements OnInit {
   selectedStatusID: number = 1;
   selectedDepartmentID: number = 1;
   selectedEmployeeID: number | null = null;
-  selectedDeadlineDate!: Date;
+  selectedDeadlineDate: Date = new Date();
   selectedDeadlineDateString: string = this.selectedDeadlineDate
     ? `${this.selectedDeadlineDate.getFullYear()}-${
         this.selectedDeadlineDate.getMonth() + 1
       }-${this.selectedDeadlineDate.getDate()}`
-    : '';
-
-  taskFormData: TaskFormData = {
-    name: this.taskTitle,
-    description: this.taskDescription,
-    due_date: this.selectedDeadlineDateString,
-    status_id: this.selectedStatusID,
-    employee_id: this.selectedEmployeeID,
-    priority_id: this.selectedPriorityID,
-  };
+    : 'Invalid Date';
 
   constructor(
     private apiService: ApiService,
@@ -77,14 +69,64 @@ export class TaskFormPageComponent implements OnInit {
     this.modalService.openModal();
   }
 
-  submitTaskForm(formData: any): void {
-    this.apiService.post('tasks', formData).subscribe({
+  checkDataValidation(): boolean {
+    return (
+      this.validationService.validateTitle(this.taskTitle) &&
+      this.validationService.validateDescription(this.taskDescription) &&
+      this.validationService.validatePriority(this.selectedPriorityID) &&
+      this.validationService.validateStatus(this.selectedStatusID) &&
+      this.validationService.validateDepartment(this.selectedDepartmentID) &&
+      this.validationService.validateResponsibleEmployee(
+        this.selectedEmployeeID
+      ) &&
+      this.validationService.validateDeadline(this.selectedDeadlineDate)
+    );
+  }
+
+  submitTaskForm(): void {
+    const taskFormData: TaskFormData = {
+      name: this.taskTitle,
+      description: this.taskDescription,
+      due_date: this.selectedDeadlineDateString,
+      status_id: this.selectedStatusID,
+      employee_id: this.selectedEmployeeID,
+      priority_id: this.selectedPriorityID,
+    };
+
+    if (
+      !taskFormData.name ||
+      !taskFormData.description ||
+      !taskFormData.due_date ||
+      !taskFormData.status_id ||
+      !taskFormData.employee_id ||
+      !taskFormData.priority_id
+    ) {
+      console.log(taskFormData.name);
+      console.log(taskFormData.description);
+      console.log(taskFormData.due_date);
+      console.log(taskFormData.status_id);
+      console.log(taskFormData.employee_id);
+      console.log(taskFormData.priority_id);
+      alert('გთხოვთ, შეავსოთ ყველა აუცილებელი ველი');
+      return;
+    }
+
+    this.apiService.post<Task>('tasks', taskFormData).subscribe({
       next: (response) => {
         console.log('Task created successfully', response);
+        alert('დავალება წარმატებით შეიქმნა!');
       },
       error: (error) => {
         console.error('Error creating task', error);
+        alert('დავალება ვერ შეიქმნა. გთხოვთ, მოგვიანებით სცადოთ');
       },
     });
+
+    this.taskTitle = '';
+    this.taskDescription = '';
+    this.selectedDeadlineDate= new Date();
+    this.selectedStatusID = 1;
+    this.selectedEmployeeID = null;
+    this.selectedPriorityID = 2;
   }
 }

@@ -108,6 +108,7 @@
       </div>
       <div class="w-full flex items-center justify-end mt-3">
         <button
+          type="button"
           class="w-[155px] py-2 px-5 bg-[#8338ec] hover:bg-[#B588F4] rounded-[20px] font-normal text-white text-[16px]"
           [disabled]="!comment.trim()"
         >
@@ -123,28 +124,10 @@
         3
       </span>
     </div>
-    <div class="w-full flex flex-col items-start justify-center mt-[41px]">
-      <div class="w-[598px] flex items-start justify-center gap-3">
-        <div class="w-[38px] h-full flex items-start justify-center">
-          <img src="/assets/images/employee.png" alt="Comment Author Avatar" />
-        </div>
-        <div class="w-[548px] h-full flex flex-col items-start justify-center">
-          <h4 class="font-medium text-lg text-[#212529]">ემილია მორგანი</h4>
-          <p class="w-full font-light text-[#343A40] text-[16px] mt-2">
-            დიზაინი სუფთად ჩანს, მაგრამ კოდირებისას მნიშვნელოვანი იქნება, რომ
-            ელემენტებს ჰქონდეს შესაბამისი რეზოლუცია.
-          </p>
-          <button
-            class="group bg-transparent py-1.5 flex items-center justify-start gap-1.5 text-[#8338EC] font-extrabold text-sm mt-2.5 hover:text-[#B588F4]"
-          >
-            <app-left-icon defaultColor="#8338EC" hoverColor="#B588F4" />
-            უპასუხე
-          </button>
-        </div>
-      </div>
-      <div
-        class="w-[545px] flex flex-col items-start justify-center ml-[53px] mt-5"
-      >
+    <div
+      class="w-full flex flex-col items-start justify-center gap-10 mt-[41px]"
+    >
+      <div class="w-[598px] flex flex-col items-start justify-center gap-5">
         <div class="w-full flex items-start justify-center gap-3">
           <div class="w-[38px] h-full flex items-start justify-center">
             <img
@@ -153,13 +136,39 @@
             />
           </div>
           <div
-            class="w-[495px] h-full flex flex-col items-start justify-center"
+            class="w-[548px] h-full flex flex-col items-start justify-center"
           >
             <h4 class="font-medium text-lg text-[#212529]">ემილია მორგანი</h4>
             <p class="w-full font-light text-[#343A40] text-[16px] mt-2">
               დიზაინი სუფთად ჩანს, მაგრამ კოდირებისას მნიშვნელოვანი იქნება, რომ
               ელემენტებს ჰქონდეს შესაბამისი რეზოლუცია.
             </p>
+            <button
+              type="button"
+              class="group bg-transparent py-1.5 flex items-center justify-start gap-1.5 text-[#8338EC] font-extrabold text-sm mt-2.5 hover:text-[#B588F4]"
+            >
+              <app-left-icon defaultColor="#8338EC" hoverColor="#B588F4" />
+              უპასუხე
+            </button>
+          </div>
+        </div>
+        <div class="w-[545px] flex flex-col items-start justify-center ml-auto">
+          <div class="w-full flex items-start justify-center gap-3">
+            <div class="w-[38px] h-full flex items-start justify-center">
+              <img
+                src="/assets/images/employee.png"
+                alt="Comment Author Avatar"
+              />
+            </div>
+            <div
+              class="w-[495px] h-full flex flex-col items-start justify-center"
+            >
+              <h4 class="font-medium text-lg text-[#212529]">ემილია მორგანი</h4>
+              <p class="w-full font-light text-[#343A40] text-[16px] mt-2">
+                დიზაინი სუფთად ჩანს, მაგრამ კოდირებისას მნიშვნელოვანი იქნება,
+                რომ ელემენტებს ჰქონდეს შესაბამისი რეზოლუცია.
+              </p>
+            </div>
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Injectable({
@@ -31,6 +31,6 @@ export class ApiService {
 
   private handleError(error: any): Observable<never> {
     console.error('API error:', error);
-    throw error;
+    return throwError(() => new Error(error));
   }
 }

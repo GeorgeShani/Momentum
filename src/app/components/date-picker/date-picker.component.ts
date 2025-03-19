@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, forwardRef, OnInit } from '@angular/core';
+import { Component, forwardRef, Input, OnInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -16,6 +16,8 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   ],
 })
 export class DatePickerComponent implements ControlValueAccessor, OnInit {
+  @Input() customClass!: any;
+
   selectedDate: Date | null = null;
   isOpen: boolean = false;
   currentMonthIndex: number = new Date().getMonth();

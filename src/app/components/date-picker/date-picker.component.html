@@ -1,9 +1,11 @@
 <div class="w-[318px] relative inline-block">
   <button
+    type="button"
     (click)="toggleCalendar()"
+    [ngClass]="customClass"
     class="w-full bg-white border-[1px] border-[#DEE2E6] p-3.5 font-extralight text-[#0D0F10] text-[14px] cursor-pointer text-left rounded flex items-center justify-start gap-[7px]"
   >
-    <img src="/assets/images/calendar.svg" alt="Calendar Icon" class="" />
+    <img src="/assets/images/calendar.svg" alt="Calendar Icon" />
     {{
       selectedDate
         ? (selectedDate | date : "dd MMMM yyyy" : "ka-GE")
@@ -17,10 +19,10 @@
     <div class="flex justify-between items-center font-extrabold p-1 w-full">
       <span>{{ georgianMonths[currentMonthIndex] }} {{ currentYear }}</span>
       <div>
-        <button (click)="prevMonth()" class="px-2">
+        <button type="button" (click)="prevMonth()" class="px-2">
           <img src="/assets/images/date-arrow-up.svg" alt="Date Arrow Up" />
         </button>
-        <button (click)="nextMonth()" class="px-2">
+        <button type="button" (click)="nextMonth()" class="px-2">
           <img src="/assets/images/date-arrow-down.svg" alt="Date Arrow Down" />
         </button>
       </div>
@@ -31,6 +33,7 @@
       </ng-container>
       <ng-container *ngFor="let date of daysInMonth">
         <button
+          type="button"
           *ngIf="date"
           [ngClass]="{
             'bg-[#8338ec] text-white font-extrabold':
@@ -50,12 +53,14 @@
     </div>
     <div class="w-full flex justify-between p-1">
       <button
+        type="button"
         (click)="isOpen = false"
         class="text-[#8338ec] font-normal text-[13px] cursor-pointer"
       >
         Cancel
       </button>
       <button
+        type="button"
         (click)="isOpen = false"
         class="text-[#8338ec] font-normal text-[13px] cursor-pointer"
       >

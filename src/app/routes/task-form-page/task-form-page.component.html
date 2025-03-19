@@ -147,9 +147,13 @@
         class="w-full p-3.5 bg-white border-[1px] border-solid border-[#DEE2E6] rounded-[5px] outline-none text-[#0D0F10] font-extralight text-sm"
       >
         <ng-template ng-label-tmp let-item="item">
-          <div class="flex items-center" *ngIf="item">
-            <img [src]="item.icon" class="mr-2" alt="{{ item.name }} Icon" />
-            {{ item.name }}
+          <div class="flex items-center justify-start">
+            <img
+              [src]="item.avatar"
+              class="mr-2 size-6 rounded-full"
+              alt="{{ item.name }} Avatar"
+            />
+            {{ item.name }} {{ item.surname }}
           </div>
           <div *ngIf="!item" class="text-gray-400">
             არჩეული თანამშრომელი არ არის
@@ -157,6 +161,7 @@
         </ng-template>
         <ng-template ng-header-tmp>
           <button
+            type="button"
             class="w-full text-left px-[15px] py-3 rounded-md flex items-center justify-start gap-2 hover:bg-[#F8F9FA] text-[#8338EC] font-normal text-[16px]"
             (click)="openEmployeeModal()"
           >
@@ -169,9 +174,13 @@
           </button>
         </ng-template>
         <ng-template ng-option-tmp let-item="item">
-          <div class="flex items-center">
-            <img [src]="item.icon" class="mr-2" alt="{{ item.name }} Icon" />
-            {{ item.name }}
+          <div class="flex items-center justify-start">
+            <img
+              [src]="item.avatar"
+              class="mr-2 size-6 rounded-full"
+              alt="{{ item.name }} Avatar"
+            />
+            {{ item.name }} {{ item.surname }}
           </div>
         </ng-template>
         <ng-template ng-notfound-tmp>
@@ -247,20 +256,32 @@
       </div>
     </div>
     <div class="flex flex-col">
-      <label for="due-date" class="font-normal text-[16px] py-1 text-[#343A40]">
+      <label class="font-normal text-[16px] py-1 text-[#343A40]">
         დედლაინი*
       </label>
       <app-date-picker
         [(ngModel)]="selectedDeadlineDate"
         (ngModelChange)="
-          validationService.validateDeadline(selectedDeadlineDate.toString())
+          validationService.validateDeadline(selectedDeadlineDate)
         "
+        [customClass]="{
+          'border-[#08A508]':
+            selectedDeadlineDate &&
+            validationService.validateDeadline(selectedDeadlineDate),
+          'border-[#FA4D4D]':
+            selectedDeadlineDate &&
+            !validationService.validateDeadline(selectedDeadlineDate),
+          'border-[#DEE2E6]': !selectedDeadlineDate
+        }"
       ></app-date-picker>
     </div>
   </div>
   <div class="w-full flex items-center justify-end">
     <button
+      type="button"
       class="py-2.5 px-5 bg-[#8338EC] text-white font-normal text-lg rounded-[5px] hover:bg-[#B588F4]"
+      [disabled]="!checkDataValidation()"
+      (click)="submitTaskForm()"
     >
       დავალების შექმნა
     </button>

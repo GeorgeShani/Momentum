@@ -24,18 +24,22 @@ export class ValidateTaskFormService {
   }
 
   validateDepartment(departmentID: number): boolean {
-    return !!departmentID;
+    const departmentIdentifiers: number[] = [1, 2, 3, 4, 5, 6, 7];
+    return departmentIdentifiers.includes(departmentID);
   }
 
   validateResponsibleEmployee(employeeID: number | null): boolean {
     return !!employeeID;
   }
 
-  validateDeadline(deadline: string): boolean {
-    const selectedDate = new Date(deadline);
+  validateDeadline(deadline: Date): boolean {
+    if (!(deadline instanceof Date) || isNaN(deadline.getTime())) {
+      return false;
+    }
+
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    return selectedDate >= today;
+    return deadline >= today;
   }
 }

@@ -86,16 +86,23 @@ export class HomePageComponent implements OnInit, OnDestroy {
       (item) => item !== value
     );
     this.dropdownService.updateSelection(type, updatedSelections);
+    this.activeFilters[type] = updatedSelections;
+    this.activeFilters = { ...this.activeFilters };
+    this.refreshTasks();
   }
 
   // Clear all filters
   clearAllFilters(): void {
     this.tasksService.clearAllFilters();
-    this.tasksService.refreshTasks();
+    this.refreshTasks();
   }
 
   // Get tasks for a specific status
   getTasksForStatus(status: string): Task[] {
     return this.groupedTasks[status] || [];
+  }
+
+  refreshTasks(): void {
+    this.tasksService.refreshTasks();
   }
 }

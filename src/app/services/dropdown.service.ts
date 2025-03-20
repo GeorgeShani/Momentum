@@ -77,18 +77,18 @@ export class DropdownService {
       departments: departments$,
       priorities: priorities$,
       employees: employees$,
-    }).subscribe(
-      (result) => {
+    }).subscribe({
+      next: (result) => {
         this.dropdownItems['დეპარტამენტი'] = result.departments;
         this.dropdownItems['პრიორიტეტი'] = result.priorities;
         this.dropdownItems['თანამშრომელი'] = result.employees;
         this.loadingSubject.next(false);
       },
-      (error) => {
+      error: (error) => {
         console.error('Error loading dropdown data:', error);
         this.loadingSubject.next(false);
-      }
-    );
+      },
+    });
   }
 
   toggleDropdown(type: string | null): void {

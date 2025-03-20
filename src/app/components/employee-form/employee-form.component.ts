@@ -1,13 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CheckIconComponent } from '../check-icon/check-icon.component';
 import { EmployeeModalService } from '../../services/employee-modal.service';
-import { Subscription } from 'rxjs';
-import { CommonModule } from '@angular/common';
 import { ValidateEmployeeFormService } from '../../services/validate-employee-form.service';
-import { FormsModule } from '@angular/forms';
-import { EmployeeFormData } from '../../interfaces/employee-form-data.model';
 import { ApiService } from '../../services/api.service';
 import { Employee } from '../../interfaces/employee.model';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-employee-form',
@@ -34,6 +33,9 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
   lastName: string = '';
   fileContent: string | null = null;
   department: string = '';
+  departmentID: number | undefined = this.getDepartmentID(this.department);
+
+  originalFileName: string = '';
 
   constructor(
     public modalService: EmployeeModalService,
@@ -66,6 +68,8 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
     if (!input.files || input.files.length === 0) return;
 
     const file = input.files[0];
+    this.originalFileName = file.name;
+
     const reader = new FileReader();
 
     reader.onload = () => {
@@ -91,7 +95,7 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
   }
 
   clearFileContent(event: Event): void {
-    event.preventDefault();
+    event.stopPropagation();
     this.fileContent = null;
   }
 
@@ -104,40 +108,55 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
     );
   }
 
-  submitFormData(): void {
-    const employeeFormData: EmployeeFormData = {
-      name: this.firstName,
-      surname: this.lastName,
-      avatar: this.fileContent,
-      department_id: this.getDepartmentID(this.department),
-    };
+  submitFormData() {
+    const formData = new FormData();
+    formData.append('name', this.firstName);
+    formData.append('surname', this.lastName);
+    formData.append(
+      'department_id',
+      this.departmentID !== undefined ? this.departmentID.toString() : ''
+    );
 
-    if (
-      !employeeFormData.name ||
-      !employeeFormData.surname ||
-      !employeeFormData.avatar ||
-      !employeeFormData.department_id
-    ) {
-      alert('გთხოვთ, შეავსოთ ყველა აუცილებელი ველი');
-      return;
+    if (this.fileContent && this.originalFileName) {
+      const mimeType = this.getMimeType(this.fileContent);
+      const extension = mimeType.split('/')[1]; // Extract file extension
+      const byteCharacters = atob(this.fileContent.split(',')[1]); // Decode Base64
+      const byteNumbers = new Array(byteCharacters.length);
+
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], { type: mimeType }); // Create Blob
+
+      // Ensure the correct file extension is used
+      const originalExtension = this.originalFileName.split('.').pop();
+      const fileName = originalExtension
+        ? this.originalFileName
+        : `avatar.${extension}`;
+
+      formData.append('avatar', blob, fileName); // Append with original name
     }
 
-    this.apiService.post<Employee>('employees', employeeFormData).subscribe({
+    this.apiService.post<Employee>('employees', formData).subscribe({
       next: (response) => {
         console.log('Employee data submitted successfully!', response);
         alert('თანამშრომელი წარმატებით შეიქმნა!');
+        this.resetForm();
       },
       error: (error) => {
         console.error('Error submitting data:', error);
         alert('თანამშრომელი ვერ შეიქმნა. გთხოვთ, მოგვიანებით სცადოთ');
       },
     });
+  }
 
+  resetForm() {
     this.firstName = '';
     this.lastName = '';
-    this.fileContent = null;
     this.department = '';
-
+    this.fileContent = null;
     this.closeModal();
   }
 
@@ -155,5 +174,10 @@ export class EmployeeFormComponent implements OnInit, OnDestroy {
 
   closeModal(): void {
     this.modalService.closeModal();
+  }
+
+  private getMimeType(base64: string): string {
+    const match = base64.match(/^data:(.*?);base64,/);
+    return match ? match[1] : 'application/octet-stream';
   }
 }

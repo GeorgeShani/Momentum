@@ -12,4 +12,5 @@ export interface Task {
     priority: Priority;
     department: Department;
     employee: Employee;
+    total_comments: number;
 }

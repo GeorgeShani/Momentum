@@ -1,25 +1,23 @@
 <div class="w-full flex items-start justify-between mb-14">
   <div class="w-[715px] flex flex-col items-start justify-center gap-[63px]">
     <div class="w-full flex flex-col items-start justify-center gap-9">
-      <div
-        class="w-full h-[105px] py-2.5 flex flex-col items-start justify-cenetr gap-3"
-      >
+      <div class="w-full py-2.5 flex flex-col items-start justify-cenetr gap-3">
         <div class="w-full flex items-center justify-start gap-[18px]">
-          <app-task-priority />
-          <app-department />
+          <app-task-priority
+            [priorityName]="task.priority.name"
+            [priorityIcon]="task.priority.icon"
+          />
+          <app-department [departmentName]="task.department.name" />
         </div>
         <h1
           class="w-full flex items-center justify-start font-semibold text-[34px] text-[#212529]"
         >
-          Redberry-ს საიტის ლენდინგის დიზაინი
+          {{ task.name }}
         </h1>
       </div>
       <div class="w-full">
         <p class="text-black font-normal text-[18px] leading-[27px] text-left">
-          მიზანია რომ შეიქმნას თანამედროვე, სუფთა და ფუნქციონალური დიზაინი,
-          რომელიც უზრუნველყოფს მარტივ ნავიგაციას და მკაფიო ინფორმაციის
-          გადაცემას. დიზაინი უნდა იყოს ადაპტირებადი (responsive), გამორჩეული
-          ვიზუალით, მინიმალისტური სტილით და ნათელი ტიპოგრაფიით.
+          {{ task.description }}
         </p>
       </div>
     </div>
@@ -45,6 +43,7 @@
           [searchable]="false"
           [clearable]="false"
           [(ngModel)]="selectedStatusID"
+          (ngModelChange)="updateTaskStatus(selectedStatusID)"
           class="w-[259px] p-3.5 bg-white border-[1px] border-solid border-[#DEE2E6] rounded-[5px] outline-none text-[#0D0F10] font-extralight text-sm"
         >
           <ng-template ng-label-tmp let-item="item">
@@ -68,14 +67,20 @@
           <p class="font-normal text-sm text-[#474747]">თანამშრომელი</p>
         </div>
         <div class="flex items-center justify-center gap-3">
-          <div class="flex items-center justify-center">
-            <img src="/assets/images/employee.png" alt="" />
+          <div class="flex items-center justify-center size-8">
+            <img
+              [src]="task.employee.avatar"
+              alt="Employee Avatar"
+              class="size-full rounded-full"
+            />
           </div>
           <div class="flex flex-col items-start justify-center gap-[1.5px]">
             <p class="font-extralight text-[11px] text-[#474747]">
-              დიზაინის დეპარტამენტი
+              {{ task.department.name }}
             </p>
-            <p class="font-normal text-sm text-[#0D0F10]">ელიანა ბაგრატიონი</p>
+            <p class="font-normal text-sm text-[#0D0F10]">
+              {{ task.employee.name }} {{ task.employee.surname }}
+            </p>
           </div>
         </div>
       </div>
@@ -87,7 +92,9 @@
           <p class="font-normal text-sm text-[#474747]">დავალების ვადა</p>
         </div>
         <div class="flex items-center justify-center">
-          <p class="font-normal text-sm text-[#0D0F1]">ორშ - 02/2/2025</p>
+          <p class="font-normal text-sm text-[#0D0F1]">
+            {{ formattedDeadDateString }}
+          </p>
         </div>
       </div>
     </div>
@@ -111,6 +118,7 @@
           type="button"
           class="w-[155px] py-2 px-5 bg-[#8338ec] hover:bg-[#B588F4] rounded-[20px] font-normal text-white text-[16px]"
           [disabled]="!comment.trim()"
+          (click)="sendComment(comment)"
         >
           დააკომენტარე
         </button>
@@ -121,52 +129,86 @@
       <span
         class="px-2.5 py-0.5 rounded-[30px] bg-[#8338EC] font-medium text-white text-sm flex items-center justify-center"
       >
-        3
+        {{ taskComments.length }}
       </span>
     </div>
     <div
       class="w-full flex flex-col items-start justify-center gap-10 mt-[41px]"
     >
-      <div class="w-[598px] flex flex-col items-start justify-center gap-5">
+      <div
+        class="w-[598px] flex flex-col items-start justify-center gap-5"
+        *ngFor="let taskComment of taskComments"
+      >
         <div class="w-full flex items-start justify-center gap-3">
           <div class="w-[38px] h-full flex items-start justify-center">
             <img
-              src="/assets/images/employee.png"
+              [src]="taskComment.author_avatar"
               alt="Comment Author Avatar"
+              class="rounded-full"
             />
           </div>
           <div
             class="w-[548px] h-full flex flex-col items-start justify-center"
           >
-            <h4 class="font-medium text-lg text-[#212529]">ემილია მორგანი</h4>
+            <h4 class="font-medium text-lg text-[#212529]">
+              {{ taskComment.author_nickname }}
+            </h4>
             <p class="w-full font-light text-[#343A40] text-[16px] mt-2">
-              დიზაინი სუფთად ჩანს, მაგრამ კოდირებისას მნიშვნელოვანი იქნება, რომ
-              ელემენტებს ჰქონდეს შესაბამისი რეზოლუცია.
+              {{ taskComment.text }}
             </p>
             <button
               type="button"
               class="group bg-transparent py-1.5 flex items-center justify-start gap-1.5 text-[#8338EC] font-extrabold text-sm mt-2.5 hover:text-[#B588F4]"
+              (click)="toggleReplyInput(taskComment.id)"
             >
               <app-left-icon defaultColor="#8338EC" hoverColor="#B588F4" />
               უპასუხე
             </button>
           </div>
         </div>
-        <div class="w-[545px] flex flex-col items-start justify-center ml-auto">
+        <div
+          *ngIf="replyVisibility[taskComment.id]"
+          class="w-[545px] ml-auto bg-white rounded-[10px] border-[0.3px] border-[#ADB5BD] flex flex-col items-center justify-center pt-[18px] pb-[15px] px-5"
+        >
+          <div class="w-full flex items-center justify-center">
+            <textarea
+              class="w-full h-[72px] py-2.5 resize-none placeholder:text-[#898989] font-light text-sm text-[#343A40] outline-none"
+              id="comment"
+              placeholder="დაწერე კომენტარი"
+              [(ngModel)]="subComment"
+            ></textarea>
+          </div>
+          <div class="w-full flex items-center justify-end mt-3">
+            <button
+              type="button"
+              class="py-2 px-5 bg-[#8338ec] hover:bg-[#B588F4] rounded-[20px] font-normal text-white text-[16px]"
+              [disabled]="!subComment.trim()"
+              (click)="sendComment(subComment, taskComment.id)"
+            >
+              უპასუხე
+            </button>
+          </div>
+        </div>
+        <div
+          class="w-[545px] flex flex-col items-start justify-center ml-auto"
+          *ngFor="let taskSubComment of taskComment.sub_comments"
+        >
           <div class="w-full flex items-start justify-center gap-3">
             <div class="w-[38px] h-full flex items-start justify-center">
               <img
-                src="/assets/images/employee.png"
+                [src]="taskSubComment.author_avatar"
                 alt="Comment Author Avatar"
+                class="rounded-full"
               />
             </div>
             <div
               class="w-[495px] h-full flex flex-col items-start justify-center"
             >
-              <h4 class="font-medium text-lg text-[#212529]">ემილია მორგანი</h4>
+              <h4 class="font-medium text-lg text-[#212529]">
+                {{ taskSubComment.author_nickname }}
+              </h4>
               <p class="w-full font-light text-[#343A40] text-[16px] mt-2">
-                დიზაინი სუფთად ჩანს, მაგრამ კოდირებისას მნიშვნელოვანი იქნება,
-                რომ ელემენტებს ჰქონდეს შესაბამისი რეზოლუცია.
+                {{ taskSubComment.text }}
               </p>
             </div>
           </div>

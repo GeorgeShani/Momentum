@@ -44,15 +44,43 @@
             />
           </div>
           <p
-            class="text-[10px] font-light text-[#6C757D] flex items-center gap-0.5"
+            class="text-[10px] font-light flex items-center gap-0.5"
+            [ngClass]="{
+              'text-[#08A508]':
+                firstName && validationService.validateFirstName(firstName),
+              'text-[#FA4D4D]':
+                firstName && !validationService.validateFirstName(firstName),
+              'text-[#6C757D]': !firstName
+            }"
           >
-            <app-check-icon strokeColor="#6C757D" />
+            <app-check-icon
+              [strokeColor]="
+                firstName && validationService.validateFirstName(firstName)
+                  ? '#08A508'
+                  : firstName && !validationService.validateFirstName(firstName)
+                  ? '#FA4D4D'
+                  : '#6C757D'
+              "
+            />
             მინიმუმ 2 სიმბოლო
           </p>
           <p
-            class="text-[10px] font-light text-[#6C757D] flex items-center gap-0.5"
+            class="text-[10px] font-light flex items-center gap-0.5"
+            [ngClass]="{
+              'text-[#08A508]':
+                firstName && validationService.validateFirstName(firstName),
+              'text-[#FA4D4D]':
+                firstName && !validationService.validateFirstName(firstName),
+              'text-[#6C757D]': !firstName
+            }"
           >
-            <app-check-icon strokeColor="#6C757D" />
+            <app-check-icon [strokeColor]="
+                firstName && validationService.validateFirstName(firstName)
+                  ? '#08A508'
+                  : firstName && !validationService.validateFirstName(firstName)
+                  ? '#FA4D4D'
+                  : '#6C757D'
+              " />
             მაქსიმუმ 255 სიმბოლო
           </p>
         </div>
@@ -80,15 +108,41 @@
             />
           </div>
           <p
-            class="text-[10px] font-light text-[#6C757D] flex items-center gap-0.5"
+            class="text-[10px] font-light flex items-center gap-0.5"
+            [ngClass]="{
+              'text-[#08A508]':
+                lastName && validationService.validateLastName(lastName),
+              'text-[#FA4D4D]':
+                lastName && !validationService.validateLastName(lastName),
+              'text-[#6C757D]': !lastName
+            }"
           >
-            <app-check-icon strokeColor="#6C757D" />
+            <app-check-icon [strokeColor]="
+                lastName && validationService.validateLastName(lastName)
+                  ? '#08A508'
+                  : lastName && !validationService.validateLastName(lastName)
+                  ? '#FA4D4D'
+                  : '#6C757D'
+              " />
             მინიმუმ 2 სიმბოლო
           </p>
           <p
-            class="text-[10px] font-light text-[#6C757D] flex items-center gap-0.5"
+            class="text-[10px] font-light flex items-center gap-0.5"
+            [ngClass]="{
+              'text-[#08A508]':
+                lastName && validationService.validateLastName(lastName),
+              'text-[#FA4D4D]':
+                lastName && !validationService.validateLastName(lastName),
+              'text-[#6C757D]': !lastName
+            }"
           >
-            <app-check-icon strokeColor="#6C757D" />
+            <app-check-icon [strokeColor]="
+                firstName && validationService.validateFirstName(firstName)
+                  ? '#08A508'
+                  : firstName && !validationService.validateFirstName(firstName)
+                  ? '#FA4D4D'
+                  : '#6C757D'
+              " />
             მაქსიმუმ 255 სიმბოლო
           </p>
         </div>
@@ -166,14 +220,14 @@
       <div class="w-full flex items-center justify-end gap-[22px]">
         <button
           type="button"
-          class="px-4 py-2.5 border-[1px] border-[#8338ec] font-normal text-[16px] text-[#343A40] rounded-[5px]"
+          class="px-4 py-2.5 border-[1px] border-[#8338ec] font-normal text-[16px] text-[#343A40] rounded-[5px] hover:border-[#B588F4]"
           (click)="closeModal()"
         >
           გაუქმება
         </button>
         <button
           type="button"
-          class="px-5 py-2.5 bg-[#8838ec] font-normal text-[18px] text-white rounded-[5px]"
+          class="px-5 py-2.5 bg-[#8838ec] font-normal text-[18px] text-white rounded-[5px] hover:bg-[#B588F4]"
           [disabled]="!checkDataValidation()"
           (click)="submitFormData()"
         >

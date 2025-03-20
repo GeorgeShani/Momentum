@@ -115,16 +115,19 @@ export class TaskFormPageComponent implements OnInit {
       next: (response) => {
         console.log('Task created successfully', response);
         alert('დავალება წარმატებით შეიქმნა!');
+        this.resetForm();
       },
       error: (error) => {
         console.error('Error creating task', error);
         alert('დავალება ვერ შეიქმნა. გთხოვთ, მოგვიანებით სცადოთ');
       },
     });
+  }
 
+  resetForm(): void {
     this.taskTitle = '';
     this.taskDescription = '';
-    this.selectedDeadlineDate= new Date();
+    this.selectedDeadlineDate = new Date();
     this.selectedStatusID = 1;
     this.selectedEmployeeID = null;
     this.selectedPriorityID = 2;

@@ -1,13 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {
-  Component,
-  ElementRef,
-  Input,
-  Output,
-  EventEmitter,
-  ViewChild,
-} from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-checkbox',
@@ -18,13 +11,11 @@ import {
 })
 export class CheckboxComponent {
   @Input() label!: string;
-  @Output() checkedChange = new EventEmitter<boolean>();
-  @ViewChild('checkbox') checkboxRef!: ElementRef<HTMLInputElement>;
-
-  isChecked = false;
+  @Input() isChecked = false;
+  @Output() change = new EventEmitter<boolean>();
 
   toggleCheckbox() {
     this.isChecked = !this.isChecked;
-    this.checkedChange.emit(this.isChecked);
+    this.change.emit(this.isChecked);
   }
 }

@@ -2,7 +2,7 @@
   class="flex items-center justify-center gap-[15px] cursor-pointer"
   (click)="toggleCheckbox()"
 >
-  <input type="checkbox" [(ngModel)]="isChecked" class="hidden" />
+  <input type="checkbox" [checked]="isChecked" class="hidden" />
   <div
     class="w-6 h-6 border-[1.5px] border-[#212529] rounded-md flex items-center justify-center"
   >
@@ -23,5 +23,5 @@
       />
     </svg>
   </div>
-  <span class="font-normal text-xs text-[#212529]">{{ label }}</span>
+  <span class="font-normal text-[16px] text-[#212529]">{{ label }}</span>
 </label>

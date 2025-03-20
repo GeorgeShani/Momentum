@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { DropdownService } from '../../services/dropdown.service';
 import { CommonModule } from '@angular/common';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dropdown-button',
@@ -11,13 +12,21 @@ import { CommonModule } from '@angular/common';
 export class DropdownButtonComponent {
   @Input() dropdownName!: string;
   isActive = false;
+  private subscription = new Subscription();
 
   constructor(private dropdownService: DropdownService) {}
 
   ngOnInit() {
-    this.dropdownService.activeDropdown$.subscribe((active) => {
-      this.isActive = active === this.dropdownName;
-    });
+    // Subscribe to active dropdown changes
+    this.subscription.add(
+      this.dropdownService.activeDropdown$.subscribe((active) => {
+        this.isActive = active === this.dropdownName;
+      })
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   toggleDropdown() {

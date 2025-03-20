@@ -1,6 +1,6 @@
 <label
   class="flex items-center justify-center gap-[15px] cursor-pointer"
-  (click)="toggleCheckbox()"
+  (click)="toggleCheckbox($event)"
 >
   <input type="checkbox" [checked]="isChecked" class="hidden" />
   <div

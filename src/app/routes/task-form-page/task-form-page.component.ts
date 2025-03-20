@@ -33,7 +33,9 @@ export class TaskFormPageComponent implements OnInit {
   selectedStatusID: number = 1;
   selectedDepartmentID: number = 1;
   selectedEmployeeID: number | null = null;
-  selectedDeadlineDate: Date = new Date();
+  selectedDeadlineDate: Date = new Date(
+    new Date().setDate(new Date().getDate() + 1)
+  );
   selectedDeadlineDateString: string = this.selectedDeadlineDate
     ? `${this.selectedDeadlineDate.getFullYear()}-${
         this.selectedDeadlineDate.getMonth() + 1

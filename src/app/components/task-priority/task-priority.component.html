@@ -1,7 +1,12 @@
 <div
   class="p-1 flex items-center justify-center gap-1 border-[1px] border-solid rounded-sm"
-  [ngStyle]="{ 'borderColor': priorityColors[priorityName] }"
+  [ngStyle]="{ borderColor: priorityColors[priorityName] }"
 >
   <img [src]="priorityIcon" alt="Priority Icon" />
-  <p class="font-medium text-xs" [ngStyle]="{ 'color': priorityColors[priorityName] }">საშუალო</p>
+  <p
+    class="font-medium text-xs"
+    [ngStyle]="{ color: priorityColors[priorityName] }"
+  >
+    {{ priorityName }}
+  </p>
 </div>

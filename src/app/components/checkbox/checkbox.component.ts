@@ -14,7 +14,8 @@ export class CheckboxComponent {
   @Input() isChecked = false;
   @Output() change = new EventEmitter<boolean>();
 
-  toggleCheckbox() {
+  toggleCheckbox(event: Event) {
+    event.stopPropagation();
     this.isChecked = !this.isChecked;
     this.change.emit(this.isChecked);
   }

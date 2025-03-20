@@ -51,12 +51,9 @@ export class TaskDetailsPageComponent implements OnInit {
     this.apiService.get<Task>(`tasks/${this.taskID}`).subscribe((data) => {
       this.task = data;
       this.selectedStatusID = data.status.id;
+      
       const dueDate = new Date(this.task.due_date);
-      this.formattedDeadDateString = `${
-        this.georgianDays[dueDate.getDay() - 1]
-      } - ${dueDate.getDate()}/${
-        dueDate.getMonth() + 1
-      }/${dueDate.getFullYear()}`;
+      this.formattedDeadDateString = `${this.georgianDays[dueDate.getDay() - 1]} - ${dueDate.getDate()}/${dueDate.getMonth() + 1}/${dueDate.getFullYear()}`;
     });
 
     this.fetchComments();

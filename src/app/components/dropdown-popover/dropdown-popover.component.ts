@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { CheckboxComponent } from "../checkbox/checkbox.component";
 import { DropdownService } from '../../services/dropdown.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dropdown-popover',
@@ -15,21 +16,32 @@ export class DropdownPopoverComponent implements OnInit {
   items: string[] = [];
   selectedItems: string[] = [];
   isLoading = false;
+  private subscription = new Subscription();
 
   constructor(private dropdownService: DropdownService) {}
 
   ngOnInit() {
-    this.dropdownService.activeDropdown$.subscribe((active) => {
-      this.isVisible = active !== null;
-      this.activeDropdownType = active;
-    });
+    // Subscribe to active dropdown changes
+    this.subscription.add(
+      this.dropdownService.activeDropdown$.subscribe((active) => {
+        this.isVisible = active !== null;
+        this.activeDropdownType = active;
+      })
+    );
 
-    this.dropdownService.dropdownData$.subscribe((data) => {
-      if (data) {
-        this.items = data.items;
-        this.selectedItems = [...data.selectedItems];
-      }
-    });
+    // Subscribe to dropdown data changes
+    this.subscription.add(
+      this.dropdownService.dropdownData$.subscribe((data) => {
+        if (data) {
+          this.items = data.items;
+          this.selectedItems = [...data.selectedItems];
+        }
+      })
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   toggleItem(item: string) {

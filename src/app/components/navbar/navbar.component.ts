@@ -3,22 +3,23 @@ import { EmployeeModalService } from '../../services/employee-modal.service';
 
 @Component({
   selector: 'app-navbar',
-  imports: [],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
-  constructor(private modalService: EmployeeModalService) {}
+  constructor(private modalService: EmployeeModalService) {} // Injecting the modal service
 
+  // Method to open the employee modal
   openEmployeeModal(): void {
-    this.modalService.openModal();
+    this.modalService.openModal(); // Call the service to open the modal
   }
 
+  // Method to redirect to the home page
   redirectToHome() {
-    window.location.href = '/';
+    window.location.href = '/'; // Redirects the user to the home page
   }
 
+  // Method to redirect to the task form page
   redirectToTaskForm() {
-    window.location.href = '/tasks/compose';
+    window.location.href = '/tasks/compose'; // Redirects to the task form
   }
 }

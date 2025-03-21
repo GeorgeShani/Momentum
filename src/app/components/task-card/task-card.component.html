@@ -4,15 +4,23 @@
 >
   <div class="flex items-center justify-between w-full">
     <div class="flex items-center justify-center gap-2.5">
-      <app-task-priority [priorityName]="task.priority.name" [priorityIcon]="task.priority.icon"  />
+      <app-task-priority
+        [priorityName]="task.priority.name"
+        [priorityIcon]="task.priority.icon"
+      />
       <app-department [departmentName]="task.department.name" />
     </div>
     <div class="flex items-center justify-center">
-      <p class="text-[#212529] font-normal text-xs">{{ formatDate(task.due_date.toString()) }}</p>
+      <p class="text-[#212529] font-normal text-xs">
+        {{ formatDate(task.due_date.toString()) }}
+      </p>
     </div>
   </div>
   <div class="w-full flex flex-col items-start justify-center gap-3">
-    <h3 class="font-medium text-[15px] text-[#212529] cursor-pointer" (click)="redirectToDetails(task.id)">
+    <h3
+      class="font-medium text-[15px] text-[#212529] cursor-pointer"
+      (click)="redirectToDetails(task.id)"
+    >
       {{ task.name }}
     </h3>
     <p class="w-full font-normal text-[#343A40] text-[14px] line-clamp-2">
@@ -20,10 +28,16 @@
     </p>
   </div>
   <div class="w-full flex items-center justify-between">
-    <img [src]="task.employee.avatar" class="size-[31px] rounded-full" alt="Employee Avatar" />
+    <img
+      [src]="task.employee.avatar"
+      class="size-[31px] rounded-full"
+      alt="Employee Avatar"
+    />
     <div class="flex items-center justify-center gap-1">
       <img src="/assets/images/comments-icon.svg" alt="Comments Icon" />
-      <p class="font-normal text-[14px] text-[#212529]">{{ task.total_comments }}</p>
+      <p class="font-normal text-[14px] text-[#212529]">
+        {{ task.total_comments }}
+      </p>
     </div>
   </div>
 </div>

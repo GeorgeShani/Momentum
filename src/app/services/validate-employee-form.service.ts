@@ -4,44 +4,42 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ValidateEmployeeFormService {
+  // Validates first name (Georgian & Latin, 2-255 chars)
   validateFirstName(name: string): boolean {
-    const regex = /^[a-zA-Zა-ჰ]{2,255}$/;
-    return regex.test(name);
+    return /^[a-zA-Zა-ჰ]{2,255}$/.test(name);
   }
 
+  // Validates last name (Georgian & Latin, 2-255 chars)
   validateLastName(lastName: string): boolean {
-    const regex = /^[a-zA-Zა-ჰ]{2,255}$/;
-    return regex.test(lastName);
+    return /^[a-zA-Zა-ჰ]{2,255}$/.test(lastName);
   }
 
+  // Validates avatar (Base64 < 600KB or valid image URL)
   validateAvatar(imageUrl: string | null): boolean {
     if (!imageUrl) return false;
 
     const maxSize = 600 * 1024; // 600KB
     const allowedExtensions = ['jpeg', 'jpg', 'png', 'gif', 'webp'];
 
-    // Check if it's a Base64 image
+    // Check Base64 format
     const base64Pattern = /^data:image\/(jpeg|jpg|png|gif|webp);base64,/;
     if (base64Pattern.test(imageUrl)) {
-      const base64Data = imageUrl.split(',')[1]; // Extract Base64 content
-      const byteLength = (base64Data.length * 3) / 4; // Approximate file size
-
-      return byteLength <= maxSize;
+      const base64Data = imageUrl.split(',')[1];
+      return (base64Data.length * 3) / 4 <= maxSize;
     }
 
-    // Check if it's an external URL with a valid image extension
+    // Check valid image URL
     try {
-      const url = new URL(imageUrl);
-      const extension = url.pathname.split('.').pop()?.toLowerCase();
-
-      return !!extension && allowedExtensions.includes(extension);
+      const ext = new URL(imageUrl).pathname.split('.').pop()?.toLowerCase();
+      return !!ext && allowedExtensions.includes(ext);
     } catch {
-      return false; // Invalid URL
+      return false;
     }
   }
 
+  // Validates department selection
   validateDepartment(department: string): boolean {
-    const departmentIdentifiers: string[] = [
+    return [
       'ადმინისტრაციის დეპარტამენტი',
       'ადამიანური რესურსების დეპარტამენტი',
       'ფინანსების დეპარტამენტი',
@@ -49,8 +47,6 @@ export class ValidateEmployeeFormService {
       'ლოჯოსტიკის დეპარტამენტი',
       'ტექნოლოგიების დეპარტამენტი',
       'მედიის დეპარტამენტი',
-    ];
-
-    return departmentIdentifiers.includes(department);
+    ].includes(department);
   }
 }

@@ -21,7 +21,6 @@ import { Subscription } from 'rxjs';
     CommonModule,
   ],
   templateUrl: './home-page.component.html',
-  styleUrl: './home-page.component.css',
 })
 export class HomePageComponent implements OnInit, OnDestroy {
   groupedTasks: { [status: string]: Task[] } = {};

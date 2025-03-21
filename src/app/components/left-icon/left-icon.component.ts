@@ -4,7 +4,6 @@ import { Component, Input } from '@angular/core';
   selector: 'app-left-icon',
   imports: [],
   templateUrl: './left-icon.component.html',
-  styleUrl: './left-icon.component.css'
 })
 export class LeftIconComponent {
   @Input() defaultColor!: string;

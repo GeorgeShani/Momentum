@@ -5,7 +5,6 @@ import { Component, Input } from '@angular/core';
   selector: 'app-department',
   imports: [CommonModule],
   templateUrl: './department.component.html',
-  styleUrl: './department.component.css',
 })
 export class DepartmentComponent {
   @Input() departmentName!: string;

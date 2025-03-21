@@ -1,41 +1,41 @@
 @font-face {
-    font-family: "FiraGO";
-    src: url("./FiraGO/FiraGO-Light.woff2") format("woff2");
-    font-weight: 200;
-    font-style: normal;
+  font-family: "FiraGO";
+  src: url("./FiraGO/FiraGO-Light.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: "FiraGO";
-    src: url("./FiraGO/FiraGO-Book.woff2") format("woff2");
-    font-weight: 300;
-    font-style: normal;
+  font-family: "FiraGO";
+  src: url("./FiraGO/FiraGO-Book.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: "FiraGO";
-    src: url("./FiraGO/FiraGO-Regular.woff2") format("woff2");
-    font-weight: 400;
-    font-style: normal;
+  font-family: "FiraGO";
+  src: url("./FiraGO/FiraGO-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: "FiraGO";
-    src: url("./FiraGO/FiraGO-Medium.woff2") format("woff2");
-    font-weight: 500;
-    font-style: normal;
+  font-family: "FiraGO";
+  src: url("./FiraGO/FiraGO-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: "FiraGO";
-    src: url("./FiraGO/FiraGO-SemiBold.woff2") format("woff2");
-    font-weight: 600;
-    font-style: normal;
+  font-family: "FiraGO";
+  src: url("./FiraGO/FiraGO-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: "Fredoka One";
-    src: url("./FredokaOne/FredokaOne-Regular.woff") format("woff");
-    font-weight: normal;
-    font-style: normal;
+  font-family: "Fredoka One";
+  src: url("./FredokaOne/FredokaOne-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
 }

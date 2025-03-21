@@ -20,34 +20,34 @@ import { Task } from '../../interfaces/task.model';
   styleUrl: './task-form-page.component.css',
 })
 export class TaskFormPageComponent implements OnInit {
+  // ViewChild to access the employee select component
   @ViewChild('employeeSelect') employeeSelect!: NgSelectComponent;
 
+  // Arrays to store data for priorities, statuses, departments, and employees
   priorities!: Priority[];
   statuses!: Status[];
   departments!: Department[];
   employees!: Employee[];
 
+  // Form input variables
   taskTitle: string = '';
   taskDescription: string = '';
   selectedPriorityID: number = 2;
   selectedStatusID: number = 1;
   selectedDepartmentID: number = 1;
   selectedEmployeeID: number | null = null;
-  selectedDeadlineDate: Date = new Date(
-    new Date().setDate(new Date().getDate() + 1)
-  );
+  selectedDeadlineDate: Date = new Date(new Date().setDate(new Date().getDate() + 1)); // Default deadline set to the next day
   selectedDeadlineDateString: string = this.selectedDeadlineDate
-    ? `${this.selectedDeadlineDate.getFullYear()}-${
-        this.selectedDeadlineDate.getMonth() + 1
-      }-${this.selectedDeadlineDate.getDate()}`
-    : 'Invalid Date';
+    ? `${this.selectedDeadlineDate.getFullYear()}-${this.selectedDeadlineDate.getMonth() + 1}-${this.selectedDeadlineDate.getDate()}`
+    : 'Invalid Date'; // Formatted string for the selected deadline date
 
   constructor(
-    private apiService: ApiService,
-    public validationService: ValidateTaskFormService,
-    private modalService: EmployeeModalService
+    private apiService: ApiService, // Injecting the API service
+    public validationService: ValidateTaskFormService, // Injecting the form validation service
+    private modalService: EmployeeModalService // Injecting the modal service for employee selection
   ) {}
 
+  // Fetch the list of priorities, statuses, departments, and employees on component initialization
   ngOnInit(): void {
     this.apiService.get<Priority[]>('priorities').subscribe((data) => {
       this.priorities = data;
@@ -66,25 +66,26 @@ export class TaskFormPageComponent implements OnInit {
     });
   }
 
+  // Open the employee selection modal
   openEmployeeModal(): void {
-    this.employeeSelect.close();
-    this.modalService.openModal();
+    this.employeeSelect.close(); // Close the select dropdown
+    this.modalService.openModal(); // Open the modal to select an employee
   }
 
+  // Validate all form data before submission
   checkDataValidation(): boolean {
     return (
-      this.validationService.validateTitle(this.taskTitle) &&
-      this.validationService.validateDescription(this.taskDescription) &&
-      this.validationService.validatePriority(this.selectedPriorityID) &&
-      this.validationService.validateStatus(this.selectedStatusID) &&
-      this.validationService.validateDepartment(this.selectedDepartmentID) &&
-      this.validationService.validateResponsibleEmployee(
-        this.selectedEmployeeID
-      ) &&
-      this.validationService.validateDeadline(this.selectedDeadlineDate)
+      this.validationService.validateTitle(this.taskTitle) && // Validate title
+      this.validationService.validateDescription(this.taskDescription) && // Validate description
+      this.validationService.validatePriority(this.selectedPriorityID) && // Validate priority
+      this.validationService.validateStatus(this.selectedStatusID) && // Validate status
+      this.validationService.validateDepartment(this.selectedDepartmentID) && // Validate department
+      this.validationService.validateResponsibleEmployee(this.selectedEmployeeID) && // Validate employee selection
+      this.validationService.validateDeadline(this.selectedDeadlineDate) // Validate deadline
     );
   }
 
+  // Submit the task form data to the API
   submitTaskForm(): void {
     const taskFormData: TaskFormData = {
       name: this.taskTitle,
@@ -95,6 +96,7 @@ export class TaskFormPageComponent implements OnInit {
       priority_id: this.selectedPriorityID,
     };
 
+    // Check if all required fields are filled
     if (
       !taskFormData.name ||
       !taskFormData.description ||
@@ -103,35 +105,30 @@ export class TaskFormPageComponent implements OnInit {
       !taskFormData.employee_id ||
       !taskFormData.priority_id
     ) {
-      console.log(taskFormData.name);
-      console.log(taskFormData.description);
-      console.log(taskFormData.due_date);
-      console.log(taskFormData.status_id);
-      console.log(taskFormData.employee_id);
-      console.log(taskFormData.priority_id);
-      alert('გთხოვთ, შეავსოთ ყველა აუცილებელი ველი');
+      alert('გთხოვთ, შეავსოთ ყველა აუცილებელი ველი'); // Alert message if fields are missing
       return;
     }
 
+    // Send POST request to create a new task
     this.apiService.post<Task>('tasks', taskFormData).subscribe({
       next: (response) => {
-        console.log('Task created successfully', response);
-        alert('დავალება წარმატებით შეიქმნა!');
-        this.resetForm();
+        alert('დავალება წარმატებით შეიქმნა!'); // Success message
+        this.resetForm(); // Reset the form
       },
       error: (error) => {
         console.error('Error creating task', error);
-        alert('დავალება ვერ შეიქმნა. გთხოვთ, მოგვიანებით სცადოთ');
+        alert('დავალება ვერ შეიქმნა. გთხოვთ, მოგვიანებით სცადოთ'); // Error message
       },
     });
   }
 
+  // Reset form fields to their default values
   resetForm(): void {
     this.taskTitle = '';
     this.taskDescription = '';
-    this.selectedDeadlineDate = new Date();
-    this.selectedStatusID = 1;
-    this.selectedEmployeeID = null;
-    this.selectedPriorityID = 2;
+    this.selectedDeadlineDate = new Date(); // Reset to today's date
+    this.selectedStatusID = 1; // Default status ID
+    this.selectedEmployeeID = null; // Default employee ID (no employee selected)
+    this.selectedPriorityID = 2; // Default priority ID
   }
 }

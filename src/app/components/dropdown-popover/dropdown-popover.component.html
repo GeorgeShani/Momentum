@@ -4,9 +4,9 @@
 >
   <div class="w-full flex flex-col items-start justify-center gap-[22px]">
     <div *ngFor="let item of items">
-      <app-checkbox 
-        [label]="item" 
-        [isChecked]="isItemSelected(item)" 
+      <app-checkbox
+        [label]="item"
+        [isChecked]="isItemSelected(item)"
         (change)="toggleItem(item)"
       ></app-checkbox>
     </div>

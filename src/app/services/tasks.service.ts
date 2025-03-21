@@ -12,7 +12,7 @@ export class TasksService {
   private tasksSubject = new BehaviorSubject<Task[]>([]);
   public tasks$ = this.tasksSubject.asObservable();
 
-  public groupedTasks$: Observable<{ [status: string]: Task[] }>;
+  public groupedTasks$: Observable<{[status: string]: Task[]}>;
 
   // Track which filters are applied (for the filter pill display)
   private activeFiltersSubject = new BehaviorSubject<{[key: string]: string[];}>({});
@@ -76,7 +76,9 @@ export class TasksService {
     filters: { [key: string]: string[] }
   ): Task[] {
     // If no filters are applied, return all tasks
-    if (Object.values(filters).every((filterArray) => filterArray.length === 0)) {
+    if (
+      Object.values(filters).every((filterArray) => filterArray.length === 0)
+    ) {
       return tasks;
     }
 

@@ -41,28 +41,35 @@ export class TaskDetailsPageComponent implements OnInit {
   constructor(private route: ActivatedRoute, private apiService: ApiService) {}
 
   ngOnInit(): void {
+    // Get task ID from route params
     const idParam = this.route.snapshot.paramMap.get('id');
     this.taskID = idParam ? parseInt(idParam, 10) : NaN;
 
+    // Fetch statuses for task status options
     this.apiService.get<Status[]>('statuses').subscribe((data) => {
       this.statuses = data;
     });
 
+    // Fetch task details
     this.apiService.get<Task>(`tasks/${this.taskID}`).subscribe((data) => {
       this.task = data;
       this.selectedStatusID = data.status.id;
-      
+
+      // Format task due date for display
       const dueDate = new Date(this.task.due_date);
       this.formattedDeadDateString = `${this.georgianDays[dueDate.getDay() - 1]} - ${dueDate.getDate()}/${dueDate.getMonth() + 1}/${dueDate.getFullYear()}`;
     });
 
+    // Fetch task comments
     this.fetchComments();
   }
 
+  // Toggle visibility of reply input for a comment
   toggleReplyInput(commentId: number): void {
     this.replyVisibility[commentId] = !this.replyVisibility[commentId];
   }
 
+  // Fetch comments for the current task
   fetchComments(): void {
     this.apiService
       .get<Comment[]>(`tasks/${this.taskID}/comments`)
@@ -71,6 +78,7 @@ export class TaskDetailsPageComponent implements OnInit {
       });
   }
 
+  // Send new comment or reply to a comment
   sendComment(comment: string, parentCommentId: number | null = null): void {
     const commentData: CommentSectionData = {
       text: comment,
@@ -85,7 +93,11 @@ export class TaskDetailsPageComponent implements OnInit {
           this.resetForm();
           this.fetchComments();
 
-          if (parentCommentId !== null && this.replyVisibility[parentCommentId]) {
+          // Toggle reply input visibility if needed
+          if (
+            parentCommentId !== null &&
+            this.replyVisibility[parentCommentId]
+          ) {
             this.toggleReplyInput(parentCommentId);
           }
         },
@@ -96,6 +108,7 @@ export class TaskDetailsPageComponent implements OnInit {
       });
   }
 
+  // Update task status
   updateTaskStatus(statusId: number): void {
     this.apiService
       .put(`tasks/${this.taskID}`, {
@@ -112,6 +125,7 @@ export class TaskDetailsPageComponent implements OnInit {
       });
   }
 
+  // Reset comment form fields
   resetForm(): void {
     this.comment = '';
     this.subComment = '';

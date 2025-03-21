@@ -4,42 +4,47 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ValidateTaskFormService {
+  private readonly priorityIDs = new Set([1, 2, 3]);
+  private readonly statusIDs = new Set([1, 2, 3, 4]);
+  private readonly departmentIDs = new Set([1, 2, 3, 4, 5, 6, 7]);
+
+  // Validates task title length (3-255 characters)
   validateTitle(title: string): boolean {
     return title.length >= 3 && title.length <= 255;
   }
 
+  // Validates description (4+ words, <= 255 characters)
   validateDescription(description: string): boolean {
     const wordCount = description.trim().split(/\s+/).length;
     return wordCount >= 4 && description.length <= 255;
   }
 
+  // Validates if priority is valid
   validatePriority(priorityID: number): boolean {
-    const priorityIdentifiers: number[] = [1, 2, 3];
-    return priorityIdentifiers.includes(priorityID);
+    return this.priorityIDs.has(priorityID);
   }
 
+  // Validates if status is valid
   validateStatus(statusID: number): boolean {
-    const statusIdentifiers: number[] = [1, 2, 3, 4];
-    return statusIdentifiers.includes(statusID);
+    return this.statusIDs.has(statusID);
   }
 
+  // Validates if department is valid
   validateDepartment(departmentID: number): boolean {
-    const departmentIdentifiers: number[] = [1, 2, 3, 4, 5, 6, 7];
-    return departmentIdentifiers.includes(departmentID);
+    return this.departmentIDs.has(departmentID);
   }
 
+  // Validates if employee ID is not null
   validateResponsibleEmployee(employeeID: number | null): boolean {
-    return !!employeeID;
+    return Boolean(employeeID);
   }
 
+  // Validates if deadline is a valid future date
   validateDeadline(deadline: Date): boolean {
-    if (!(deadline instanceof Date) || isNaN(deadline.getTime())) {
-      return false;
-    }
-
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    return deadline >= today;
+    return (
+      deadline instanceof Date &&
+      !isNaN(deadline.getTime()) &&
+      deadline.getTime() >= new Date().setHours(0, 0, 0, 0)
+    );
   }
 }

@@ -5,12 +5,7 @@ import { ApiService } from './api.service';
 import { Department } from '../interfaces/department.model';
 import { Priority } from '../interfaces/priority.model';
 import { Employee } from '../interfaces/employee.model';
-
-interface DropdownData {
-  type: 'დეპარტამენტი' | 'პრიორიტეტი' | 'თანამშრომელი';
-  items: string[];
-  selectedItems: string[];
-}
+import { DropdownData } from '../interfaces/dropdown-data.model';
 
 @Injectable({
   providedIn: 'root',
@@ -22,21 +17,21 @@ export class DropdownService {
   private dropdownDataSubject = new BehaviorSubject<DropdownData | null>(null);
   public dropdownData$ = this.dropdownDataSubject.asObservable();
 
-  // Store dropdown data
+  // Stores dropdown options
   private dropdownItems: { [key: string]: string[] } = {
     დეპარტამენტი: [],
     პრიორიტეტი: [],
     თანამშრომელი: [],
   };
 
-  // Store selections separately
+  // Stores selected values
   private selections: { [key: string]: string[] } = {
     დეპარტამენტი: [],
     პრიორიტეტი: [],
     თანამშრომელი: [],
   };
 
-  // Track loading state
+  // Tracks loading state
   private loadingSubject = new BehaviorSubject<boolean>(false);
   public loading$ = this.loadingSubject.asObservable();
 
@@ -47,7 +42,7 @@ export class DropdownService {
   private loadAllDropdownData(): void {
     this.loadingSubject.next(true);
 
-    // Create API requests for all dropdown data
+    // Fetch dropdown data from API
     const departments$ = this.apiService.get<Department[]>('departments').pipe(
       map((response) => response.map((item) => item.name)),
       catchError((err) => {
@@ -72,7 +67,7 @@ export class DropdownService {
       })
     );
 
-    // Load all data in parallel
+    // Fetch all data in parallel
     forkJoin({
       departments: departments$,
       priorities: priorities$,
@@ -93,7 +88,7 @@ export class DropdownService {
 
   toggleDropdown(type: string | null): void {
     if (this.activeDropdownSubject.value === type || type === null) {
-      // Explicitly clear selection and notify subscribers
+      // Close dropdown
       this.activeDropdownSubject.next(null);
       this.dropdownDataSubject.next(null);
     } else {
@@ -113,9 +108,8 @@ export class DropdownService {
   updateSelection(type: string, items: string[]): void {
     this.selections[type] = [...items];
 
-    // Emit an event to notify subscribers that selections have changed
-    const currentDropdown = this.activeDropdownSubject.value;
-    if (currentDropdown === type) {
+    // Update dropdown data if active
+    if (this.activeDropdownSubject.value === type) {
       this.dropdownDataSubject.next({
         type: type as any,
         items: this.dropdownItems[type] || [],
@@ -132,7 +126,7 @@ export class DropdownService {
     return { ...this.selections };
   }
 
-  // Method to reload dropdown data if needed
+  // Reload dropdown data if needed
   refreshDropdownData(): void {
     this.loadAllDropdownData();
   }

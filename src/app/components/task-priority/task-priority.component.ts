@@ -5,7 +5,6 @@ import { Component, Input } from '@angular/core';
   selector: 'app-task-priority',
   imports: [CommonModule],
   templateUrl: './task-priority.component.html',
-  styleUrl: './task-priority.component.css',
 })
 export class TaskPriorityComponent {
   @Input() priorityName!: string;

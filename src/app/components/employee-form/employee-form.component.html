@@ -137,9 +137,9 @@
             }"
           >
             <app-check-icon [strokeColor]="
-                firstName && validationService.validateFirstName(firstName)
+                lastName && validationService.validateLastName(lastName)
                   ? '#08A508'
-                  : firstName && !validationService.validateFirstName(firstName)
+                  : lastName && !validationService.validateLastName(lastName)
                   ? '#FA4D4D'
                   : '#6C757D'
               " />

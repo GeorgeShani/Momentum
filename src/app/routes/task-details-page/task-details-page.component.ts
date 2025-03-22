@@ -34,8 +34,8 @@ export class TaskDetailsPageComponent implements OnInit {
   comment: string = '';
   subComment: string = '';
   parentCommentId: number | null = null;
-  georgianDays: string[] = ['ორშ', 'სამ', 'ოთხ', 'ხუთ', 'პარ', 'შაბ', 'კვ'];
-  formattedDeadDateString: string = '';
+  georgianDays: string[] = ['კვ', 'ორშ', 'სამ', 'ოთხ', 'ხუთ', 'პარ', 'შაბ'];
+  formattedDeadlineDateString: string = '';
   replyVisibility: { [commentId: number]: boolean } = {};
 
   constructor(private route: ActivatedRoute, private apiService: ApiService) {}
@@ -57,7 +57,8 @@ export class TaskDetailsPageComponent implements OnInit {
 
       // Format task due date for display
       const dueDate = new Date(this.task.due_date);
-      this.formattedDeadDateString = `${this.georgianDays[dueDate.getDay() - 1]} - ${dueDate.getDate()}/${dueDate.getMonth() + 1}/${dueDate.getFullYear()}`;
+      console.log(this.task.due_date);
+      this.formattedDeadlineDateString = `${this.georgianDays[dueDate.getDay()]} - ${dueDate.getDate()}/${dueDate.getMonth() + 1}/${dueDate.getFullYear()}`;
     });
 
     // Fetch task comments
